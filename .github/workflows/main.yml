@@ -38,7 +38,7 @@ jobs:
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         shell: python
         run: |
-              import os
+              import os,re
 
               files =  [file for file in os.listdir('devops/.github/workflows') if re.match(r'(.)+_pipeline.yml', file)]
               print(f"Files : {file}")
