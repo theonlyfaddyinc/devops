@@ -26,7 +26,11 @@ jobs:
           path: ./devops
       - name: Run a one-line script
         run: echo Hello, ${{ inputs.sample_input }}
-
+      - name: Before Copy
+        shell: sh
+        run: |
+          pwd
+          ls -lta '.github/workflows/' 
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         shell: python
         run: |
@@ -38,7 +42,7 @@ jobs:
               for file in files:
                 shutil.copy(workflow_source_path + file,workflow_dest_path + file)
                 print(f"File copied from <{workflow_source_path + file}> to <workflow_dest_path + file>")
-      - name: Run a multi-line script
+      - name: After Copy
         shell: sh
         run: |
           pwd

@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sample step
-      - run: echo "Sample Step!"
+        run: echo "Sample Step!"
