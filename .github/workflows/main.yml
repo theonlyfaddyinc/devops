@@ -33,7 +33,8 @@ jobs:
           echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
           pwd
           ls -lta
-          ls -lta devops 
+          ls -lta devops/.github/workflows/
+          cp devops/.github/workflows/*_pipeline.yml ./.github/workflows/
   step2:
     needs: step1
     name: Step 2
