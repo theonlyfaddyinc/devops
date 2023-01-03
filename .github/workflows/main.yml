@@ -33,7 +33,7 @@ jobs:
               import os,re,shutil
               workflow_source_path = 'devops/.github/workflows/'
               workflow_dest_path = '.github/workflows/'
-              files =  [file for file in os.listdir(workflow_path) if re.match(r'(.)+_pipeline.yml', file)]
+              files =  [file for file in os.listdir(workflow_source_path) if re.match(r'(.)+_pipeline.yml', file)]
               print(f"Files : {files}")
               for file in files:
                 shutil.copy(workflow_source_path + file,workflow_dest_path + file)
