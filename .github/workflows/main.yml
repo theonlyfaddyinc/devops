@@ -22,7 +22,7 @@ jobs:
       - name: Checkout devops repo under ./devops
         uses: actions/checkout@v3
         with:
-          repository: theonlyfaddyinc/devops@v0
+          repository: theonlyfaddyinc/devops@main
           path: ./devops
       - name: Run a one-line script
         run: echo Hello, ${{ inputs.sample_input }}
