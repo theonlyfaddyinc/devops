@@ -1,1 +1,3 @@
-
+name: Release Pipeline [MANUAL]
+on:
+  workflow_dispatch:

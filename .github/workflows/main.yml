@@ -26,22 +26,24 @@ jobs:
           path: ./devops
       - name: Run a one-line script
         run: echo Hello, ${{ inputs.sample_input }}
-      # - name: Run a multi-line script
-      #   shell: sh
-      #   run: |
-      #     echo Add other actions to build,
-      #     echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
-      #     pwd
-      #     ls -lta
-      #     ls -lta devops/.github/workflows/
-      #     cp devops/.github/workflows/*_pipeline.yml ./.github/workflows/
+
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         shell: python
         run: |
-              import os,re
-
-              files =  [file for file in os.listdir('devops/.github/workflows') if re.match(r'(.)+_pipeline.yml', file)]
+              import os,re,shutil
+              workflow_source_path = 'devops/.github/workflows/'
+              workflow_dest_path = '.github/workflows/'
+              files =  [file for file in os.listdir(workflow_path) if re.match(r'(.)+_pipeline.yml', file)]
               print(f"Files : {files}")
+              for file in files:
+                shutil.copy(workflow_source_path + file,workflow_dest_path + file)
+                print(f"File copied from <{workflow_source_path + file}> to <workflow_dest_path + file>")
+      - name: Run a multi-line script
+        shell: sh
+        run: |
+          pwd
+          ls -lta '.github/workflows/'     
+
   step2:
     needs: step1
     name: Step 2
