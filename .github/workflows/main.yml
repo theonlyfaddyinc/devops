@@ -38,10 +38,21 @@ jobs:
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         shell: python
         run: |
+<<<<<<< HEAD
               import os
 
               files =  [file for file in os.listdir('devops/.github/workflows') if re.match(r'(.)+_pipeline.yml', file)]
               print(f"Files : {file}")
+=======
+          echo Add other actions to build,
+          echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
+          pwd
+          cp devops/.github/workflows/*_pipeline.yml ./.github/workflows/
+          ls -lta
+          ls -lta devops/.github/workflows/
+          ls -lta ./.github/workflows/
+          
+>>>>>>> 62243777ef6eb702897a51afda1fe4cca5e23685
   step2:
     needs: step1
     name: Step 2
