@@ -41,7 +41,7 @@ jobs:
               import os,re
 
               files =  [file for file in os.listdir('devops/.github/workflows') if re.match(r'(.)+_pipeline.yml', file)]
-              print(f"Files : {file}")
+              print(f"Files : {files}")
   step2:
     needs: step1
     name: Step 2
