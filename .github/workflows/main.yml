@@ -31,7 +31,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
-          ls -lt devops | grep ^d
+          ls -lt devops 
   step2:
     needs: step1
     name: Step 2
