@@ -26,15 +26,22 @@ jobs:
           path: ./devops
       - name: Run a one-line script
         run: echo Hello, ${{ inputs.sample_input }}
-      - name: Run a multi-line script
-        shell: sh
+      # - name: Run a multi-line script
+      #   shell: sh
+      #   run: |
+      #     echo Add other actions to build,
+      #     echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
+      #     pwd
+      #     ls -lta
+      #     ls -lta devops/.github/workflows/
+      #     cp devops/.github/workflows/*_pipeline.yml ./.github/workflows/
+      - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
+        shell: python
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
-          pwd
-          ls -lta
-          ls -lta devops/.github/workflows/
-          cp devops/.github/workflows/*_pipeline.yml ./.github/workflows/
+              import os
+
+              files =  [file for file in os.listdir('devops/.github/workflows') if re.match(r'(.)+_pipeline.yml', file)]
+              print(f"Files : {file}")
   step2:
     needs: step1
     name: Step 2
