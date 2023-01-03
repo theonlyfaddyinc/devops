@@ -27,6 +27,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, ${{ inputs.sample_input }}
       - name: Run a multi-line script
+        shell: sh
         run: |
           echo Add other actions to build,
           echo test, and deploy your project. Got it ${{ inputs.sample_input }}?
