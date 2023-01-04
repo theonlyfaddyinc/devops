@@ -87,6 +87,7 @@ jobs:
           echo "Initializin Git Config!"
           git config --global user.name 'GHA_AUTO_AGENT'
           git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
+          git status
           echo "workflow_source_path : ${{ steps.files_copy_step.outputs.workflow_source_path }}"
           echo "workflow_dest_path : ${{ steps.files_copy_step.outputs.workflow_dest_path }}"
           workflow_source_path="${{ steps.files_copy_step.outputs.workflow_source_path }}"
