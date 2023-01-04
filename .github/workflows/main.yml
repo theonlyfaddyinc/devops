@@ -24,11 +24,14 @@ jobs:
     steps:
       - name: Checkout current repo!
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Checkout devops repo under ./devops
         uses: actions/checkout@v3
         with:
           repository: theonlyfaddyinc/devops
           path: ./devops
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         id: files_copy_step
         # shell: python
