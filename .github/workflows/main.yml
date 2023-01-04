@@ -98,6 +98,7 @@ jobs:
             echo "File = $file"
             git add $workflow_dest_path$file
           done;
+          git status
 
   job2:
     needs: job1
