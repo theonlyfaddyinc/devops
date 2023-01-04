@@ -89,11 +89,14 @@ jobs:
           git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
           echo "workflow_source_path : ${{ steps.files_copy_step.outputs.workflow_source_path }}"
           echo "workflow_dest_path : ${{ steps.files_copy_step.outputs.workflow_dest_path }}"
+          workflow_source_path="${{ steps.files_copy_step.outputs.workflow_source_path }}"
+          workflow_dest_path="${{ steps.files_copy_step.outputs.workflow_dest_path }}"
           
           echo "Files list : ${{ steps.files_copy_step.outputs.files_list }}"
           for file in "${{ steps.files_copy_step.outputs.files_list }}";
           do
             echo "File = $file"
+            git add workflow_dest_path$file
           done;
 
   job2:
