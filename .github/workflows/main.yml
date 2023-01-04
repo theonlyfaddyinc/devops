@@ -18,6 +18,8 @@ jobs:
     name: Job 1
     outputs:
       files_list: ${{ steps.files_copy_step.outputs.files_list }}
+      workflow_source_path: ${{ steps.files_copy_step.outputs.workflow_source_path }}
+      workflow_dest_path: ${{ steps.files_copy_step.outputs.workflow_dest_path }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current repo!
@@ -57,9 +59,7 @@ jobs:
               workflow_dest_path="$GITHUB_WORKSPACE/.github/workflows/"
               pipeline_file_filter='*_pipeline.yml'
               
-              echo "Initializin Git Config!"
-              git config --global user.name 'GHA_AUTO_AGENT'
-              git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
+              
               
               echo "Change directory to '$workflow_source_path'"
               cd $workflow_source_path
@@ -76,12 +76,20 @@ jobs:
                   else
                         file_list=$file_list' '$file
                   fi
-                  echo "files_list=$file_list" >> $GITHUB_OUTPUT
+                  echo "files_list=$file_list\n" >> $GITHUB_OUTPUT
+                  echo "workflow_source_path=$workflow_source_path\n" >> $GITHUB_OUTPUT
+                  echo "workflow_dest_path=$workflow_dest_path\n" >> $GITHUB_OUTPUT
               done;
               echo $file_list
       - name: Git add files & commit
         shell: sh
         run: |
+          echo "Initializin Git Config!"
+          git config --global user.name 'GHA_AUTO_AGENT'
+          git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
+          echo "workflow_source_path : ${{ steps.files_copy_step.outputs.workflow_source_path }}"
+          echo "workflow_dest_path : ${{ steps.files_copy_step.outputs.workflow_dest_path }}"
+          
           echo "Files list : ${{ steps.files_copy_step.outputs.files_list }}"
           for file in "${{ steps.files_copy_step.outputs.files_list }}";
           do
