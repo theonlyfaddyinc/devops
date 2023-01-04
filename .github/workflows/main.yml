@@ -56,13 +56,15 @@ jobs:
               workflow_source_path='devops/.github/workflows/'
               workflow_dest_path='.github/workflows/'
               pipeline_file_filter='*_pipeline.yml'
-              echo " - Files to be copied : "
-              ls -lt $workflow_source_path$pipeline_file_filter
+              echo " - Files to be copied : `ls $workflow_source_path$pipeline_file_filter`"
               echo " - Copy '$pipeline_file_filter' files from '$workflow_source_path' to '$workflow_dest_path'"
               cp $workflow_source_path$pipeline_file_filter $workflow_dest_path
               for file in $workflow_source_path$pipeline_file_filter;
               do
-                      echo "Commit file : $file"
+                  echo "Copying '$file' to  '$workflow_dest_path'"
+                  cp $workflow_source_path$file $workflow_dest_path$file
+                  
+                      echo "Add file to git  : $file"
               done;
                
       - name: After Copy
