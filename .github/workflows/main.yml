@@ -67,7 +67,7 @@ jobs:
               for file_abs in $workflow_source_path$pipeline_file_filter;
               do
                   echo "Copying '$file_abs' to  '$workflow_dest_path'"
-                  file=`cat $file_abs | sed -e "s/$workflow_source_path//"`
+                  file=$(cat $file_abs | sed -e "s/$workflow_source_path//")
                   echo "Converted '$file_abs' to '$file'"
                   cp $file $workflow_dest_path$file
                   
