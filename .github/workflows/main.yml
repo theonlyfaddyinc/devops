@@ -83,7 +83,7 @@ jobs:
           git status
           # echo "workflow_source_path : ${{ steps.files_copy_step.outputs.workflow_source_path }}"
           # echo "workflow_dest_path : ${{ steps.files_copy_step.outputs.workflow_dest_path }}"
-          workflow_source_path="${{ steps.files_copy_step.outputs.workflow_source_path }}"
+          # workflow_source_path="${{ steps.files_copy_step.outputs.workflow_source_path }}"
           workflow_dest_path="${{ steps.files_copy_step.outputs.workflow_dest_path }}"
           
           echo "Files list : ${{ steps.files_copy_step.outputs.files_list }}"
