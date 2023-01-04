@@ -70,8 +70,13 @@ jobs:
                   #file=$(cat $file_abs | sed -e "s/$workflow_source_path//")
                   #echo "Converted '$file' to '$file'"
                   cp $workflow_source_path$file $workflow_dest_path$file
+                  if [ -z "$var" ]
+                  then
+                        file_list=$file
+                  else
+                        file_list=$file_list' '$file
+                  fi
                   
-                  file_list=$file_list'|'$file
               done;
               echo $file_list
       - name: Git add files & commit
