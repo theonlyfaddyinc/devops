@@ -29,13 +29,6 @@ jobs:
         with:
           repository: theonlyfaddyinc/devops
           path: ./devops
-      - name: Run a one-line script
-        run: echo Hello, ${{ inputs.sample_input }}
-      - name: Before Copy
-        shell: sh
-        run: |
-          pwd
-          ls -lta '.github/workflows/' 
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         id: files_copy_step
         # shell: python
