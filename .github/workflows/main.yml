@@ -99,7 +99,7 @@ jobs:
           git diff --name-only --cached
           echo "- Performing commit. Incld '[skip actions]' in message to skip cyclic action trigger."
           git commit -am "GHA_AUTO_AGENT : Pipeline Initialization [skip actions]"
-          git push
+          # git push
 
   job2:
     needs: job1
