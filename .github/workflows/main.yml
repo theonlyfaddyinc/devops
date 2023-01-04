@@ -53,8 +53,8 @@ jobs:
         #               output.write(f"files_list={files_list}\n")
         shell: sh
         run: |
-              workflow_source_path='$GITHUB_WORKSPACE/devops/.github/workflows/'
-              workflow_dest_path='$GITHUB_WORKSPACE/.github/workflows/'
+              workflow_source_path="$GITHUB_WORKSPACE/devops/.github/workflows/"
+              workflow_dest_path="$GITHUB_WORKSPACE/.github/workflows/"
               pipeline_file_filter='*_pipeline.yml'
               echo " - Files to be copied : `ls $workflow_source_path$pipeline_file_filter`"
               echo " - Copy '$pipeline_file_filter' files from '$workflow_source_path' to '$workflow_dest_path'"
