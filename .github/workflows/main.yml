@@ -10,6 +10,9 @@ on:
       sample_input:
         required: true
         type: string
+    secrets:
+      secret_token:
+        required: true  
 
   workflow_dispatch:
 
@@ -25,13 +28,13 @@ jobs:
       - name: Checkout current repo!
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.secret_token }}
       - name: Checkout devops repo under ./devops
         uses: actions/checkout@v3
         with:
           repository: theonlyfaddyinc/devops
           path: ./devops
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.secret_token }}
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
         id: files_copy_step
         # shell: python
@@ -89,10 +92,10 @@ jobs:
           # workflow_source_path="${{ steps.files_copy_step.outputs.workflow_source_path }}"
           workflow_dest_path="${{ steps.files_copy_step.outputs.workflow_dest_path }}"
           
-          echo "Files list : ${{ steps.files_copy_step.outputs.files_list }}"
+          echo "- Files list : ${{ steps.files_copy_step.outputs.files_list }}"
           for file in "${{ steps.files_copy_step.outputs.files_list }}";
           do
-            echo "File = $file"
+            echo " -- File = $file"
             git add $workflow_dest_path$file
           done;
           echo "- Files staged for the commit:"
