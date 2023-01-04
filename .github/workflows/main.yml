@@ -14,7 +14,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  step1:
+  job1:
+    name: Job 1
+    outputs:
+      files_list: ${{ steps.files_copy_step.outputs.files_list }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current repo!
@@ -32,27 +35,45 @@ jobs:
           pwd
           ls -lta '.github/workflows/' 
       - name: Copy *_pipeline.yml workflows from devops repo to ${{ github.repository }} repo.
-        shell: python
+        id: files_copy_step
+        # shell: python
+        # run: |
+        #       import os,re,shutil
+        #       workflow_source_path = 'devops/.github/workflows/'
+        #       workflow_dest_path = '.github/workflows/'
+        #       files =  [file for file in os.listdir(workflow_source_path) if re.match(r'(.)+_pipeline.yml', file)]
+        #       print(f"Files : {files}")
+        #       for file in files:
+        #         shutil.copy(workflow_source_path + file,workflow_dest_path + file)
+        #         print(f"File copied from <{workflow_source_path + file}> to <workflow_dest_path + file>")
+        #       files_list = "|".join(files)
+        #       print(f"Files List = {files_list}")
+
+        #       with open(os.getenv('GITHUB_OUTPUT'), "a") as output:
+        #               output.write(f"files_list={files_list}\n")
+        shell: sh
         run: |
-              import os,re,shutil
-              workflow_source_path = 'devops/.github/workflows/'
-              workflow_dest_path = '.github/workflows/'
-              files =  [file for file in os.listdir(workflow_source_path) if re.match(r'(.)+_pipeline.yml', file)]
-              print(f"Files : {files}")
-              for file in files:
-                shutil.copy(workflow_source_path + file,workflow_dest_path + file)
-                print(f"File copied from <{workflow_source_path + file}> to <workflow_dest_path + file>")
-              files_list = "|".join(files)
-              print(f"Files List = {files_list}")
+              workflow_source_path='devops/.github/workflows/'
+              workflow_dest_path='.github/workflows/'
+              pipeline_file_filter='*_pipeline.yml'
+              echo " - Files to be copied : "
+              ls -lt $workflow_source_path$pipeline_file_filter
+              echo " - Copy '$pipeline_file_filter' files from '$workflow_source_path' to '$workflow_dest_path'"
+              cp $workflow_source_path$pipeline_file_filter $workflow_dest_path
+              for file in $workflow_source_path$pipeline_file_filter;
+              do
+                      echo "Commit file : $file"
+              done;
+               
       - name: After Copy
         shell: sh
         run: |
           pwd
           ls -lta '.github/workflows/'     
 
-  step2:
-    needs: step1
-    name: Step 2
+  job2:
+    needs: job1
+    name: Job 2
     runs-on: ubuntu-latest
     steps:
       - name: Run a simple step
