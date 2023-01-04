@@ -99,7 +99,7 @@ jobs:
             echo "File = $file"
             git add $workflow_dest_path$file
           done;
-          git status
+          git diff --name-only --cached
 
   job2:
     needs: job1
