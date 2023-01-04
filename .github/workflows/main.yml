@@ -56,17 +56,21 @@ jobs:
               workflow_source_path="$GITHUB_WORKSPACE/devops/.github/workflows/"
               workflow_dest_path="$GITHUB_WORKSPACE/.github/workflows/"
               pipeline_file_filter='*_pipeline.yml'
-              echo " - Files to be copied : `ls $workflow_source_path$pipeline_file_filter`"
-              echo " - Copy '$pipeline_file_filter' files from '$workflow_source_path' to '$workflow_dest_path'"
-              #cp $workflow_source_path$pipeline_file_filter $workflow_dest_path
+              
+              echo "Initializin Git Config!"
+              git config --global user.name 'GHA_AUTO_AGENT'
+              git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
+              
               echo "Change directory to '$workflow_source_path'"
-              #cd $workflow_source_path
-              for file in $workflow_source_path$pipeline_file_filter;
+              cd $workflow_source_path
+              
+              for file in $pipeline_file_filter;
               do
                   echo "Copying '$file' to  '$workflow_dest_path'"
-                  cp $file $workflow_dest_path$file
+                  cp $workflow_source_path$file $workflow_dest_path$file
                   
-                  echo "Add file to git  : $file"
+                  echo "Add file to git  : $workflow_dest_path$file"
+                  git add $workflow_dest_path$file
               done;
                
       - name: After Copy
