@@ -76,14 +76,17 @@ jobs:
                   else
                         file_list=$file_list' '$file
                   fi
-                  
+                  echo "files_list=$file_list" >> $GITHUB_OUTPUT
               done;
               echo $file_list
       - name: Git add files & commit
         shell: sh
         run: |
-          pwd
-          ls -lta '.github/workflows/'     
+          echo "Files list : ${{ steps.files_copy_step.outputs.files_list }}"
+          for file in "${{ steps.files_copy_step.outputs.files_list }}";
+          do
+            echo "File = $file"
+          done;
 
   job2:
     needs: job1
