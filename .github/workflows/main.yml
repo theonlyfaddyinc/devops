@@ -22,6 +22,9 @@ jobs:
       workflow_dest_path: ${{ steps.files_copy_step.outputs.workflow_dest_path }}
     runs-on: ubuntu-latest
     steps:
+      - name: Check env var
+        run: |
+              echo "Secret :  ${{ secrets.WORKFLOW_TOKEN }}"
       - name: Checkout current repo!
         uses: actions/checkout@v3
         with:
