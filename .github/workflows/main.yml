@@ -62,20 +62,19 @@ jobs:
               git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
               
               echo "Change directory to '$workflow_source_path'"
-              # cd $workflow_source_path
+              cd $workflow_source_path
 
-              for file_abs in $workflow_source_path$pipeline_file_filter;
+              for file in $pipeline_file_filter;
               do
-                  echo "Copying '$file_abs' to  '$workflow_dest_path'"
-                  file=$(cat $file_abs | sed -e "s/$workflow_source_path//")
-                  echo "Converted '$file_abs' to '$file'"
-                  cp $file $workflow_dest_path$file
+                  echo "Copying '$file' to  '$workflow_dest_path'"
+                  #file=$(cat $file_abs | sed -e "s/$workflow_source_path//")
+                  #echo "Converted '$file' to '$file'"
+                  cp $workflow_source_path$file $workflow_dest_path$file
                   
-                  echo "Add file to git  : $workflow_dest_path$file"
-                  git add $workflow_dest_path$file
+                  file_list=$file_list'|'$file
               done;
-               
-      - name: After Copy
+              echo $file_list
+      - name: Git add files & commit
         shell: sh
         run: |
           pwd
