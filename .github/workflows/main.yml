@@ -77,12 +77,12 @@ jobs:
       - name: Git add files & commit
         shell: sh
         run: |
-          echo "Initializin Git Config!"
+          echo "- Initializin Git Config!"
           git config --global user.name 'GHA_AUTO_AGENT'
           git config --global user.email 'GHA_AUTO_AGENT@gmail.com'
           git status
-          echo "workflow_source_path : ${{ steps.files_copy_step.outputs.workflow_source_path }}"
-          echo "workflow_dest_path : ${{ steps.files_copy_step.outputs.workflow_dest_path }}"
+          # echo "workflow_source_path : ${{ steps.files_copy_step.outputs.workflow_source_path }}"
+          # echo "workflow_dest_path : ${{ steps.files_copy_step.outputs.workflow_dest_path }}"
           workflow_source_path="${{ steps.files_copy_step.outputs.workflow_source_path }}"
           workflow_dest_path="${{ steps.files_copy_step.outputs.workflow_dest_path }}"
           
@@ -92,7 +92,11 @@ jobs:
             echo "File = $file"
             git add $workflow_dest_path$file
           done;
+          echo "- Files staged for the commit:"
           git diff --name-only --cached
+          echo "- Performing commit. Incld '[skip actions]' in message to skip cyclic action trigger."
+          git commit -am "GHA_AUTO_AGENT : Pipeline Initialization [skip actions]"
+          git push
 
   job2:
     needs: job1
