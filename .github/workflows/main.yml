@@ -96,7 +96,7 @@ jobs:
           for file in "${{ steps.files_copy_step.outputs.files_list }}";
           do
             echo "File = $file"
-            git add workflow_dest_path$file
+            git add $workflow_dest_path$file
           done;
 
   job2:
