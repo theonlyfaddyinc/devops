@@ -42,7 +42,7 @@ jobs:
               for file in files:
                 shutil.copy(workflow_source_path + file,workflow_dest_path + file)
                 print(f"File copied from <{workflow_source_path + file}> to <workflow_dest_path + file>")
-              files_list = files.join('|')
+              files_list = "|".join(files)
               print(f"Files List = {files_list}")
       - name: After Copy
         shell: sh
