@@ -29,7 +29,7 @@ jobs:
         with:
           token: ${{ secrets.secret_token }}
       - id: test-action-1
-        uses: actions/test-action-1
+        uses: ./.github/actions/test-action-1
         with:
           who-to-greet: 'Faddy'
       - run: echo Hi
