@@ -27,7 +27,7 @@ jobs:
       - name: Checkout current repo!
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.secret_token }}
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       - id: test-action-1
         uses: ./.github/actions/test-action-1
         with:
