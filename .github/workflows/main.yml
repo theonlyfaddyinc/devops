@@ -1,10 +1,10 @@
 name: "Pipeline Workflow Setup"
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
   workflow_call:
     inputs:
       sample_input:
@@ -60,8 +60,6 @@ jobs:
               workflow_source_path="$GITHUB_WORKSPACE/devops/.github/workflows/"
               workflow_dest_path="$GITHUB_WORKSPACE/.github/workflows/"
               pipeline_file_filter='*_pipeline.yml'
-              
-              
               
               echo "Change directory to '$workflow_source_path'"
               cd $workflow_source_path

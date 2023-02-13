@@ -45,7 +45,7 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - id: test-action-2
-        uses: test-action-2
+        uses: ./test-action-2
         with:
           who-to-greet: 'Faddy Baba'
       - run: echo Hi
