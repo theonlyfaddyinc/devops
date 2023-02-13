@@ -18,7 +18,7 @@ on:
 
 jobs:
   job1:
-    name: Test C
+    name: Test './.github/actions/test-action-1' run
     runs-on: ubuntu-latest
     steps:
       - name: Check env var
@@ -33,11 +33,19 @@ jobs:
         with:
           who-to-greet: 'Faddy'
       - run: echo Hi
-
   job2:
-    needs: job1
-    name: Job 2
+    name: Test './.github/actions/test-action-1' run
     runs-on: ubuntu-latest
     steps:
-      - name: Run a simple step
-        run: echo "Run a simple step"
+      - name: Check env var
+        run: |
+              echo "Secret :  ${{ secrets.WORKFLOW_TOKEN }}"
+      - name: Checkout current repo!
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+      - id: test-action-2
+        uses: test-action-2
+        with:
+          who-to-greet: 'Faddy Baba'
+      - run: echo Hi
