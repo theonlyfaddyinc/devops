@@ -12,9 +12,11 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-2
+    - name: Greet
+      run: echo Hello ${{ inputs.who-to-greet }}. From test-action-2
       shell: bash
-    - id: random-number-generator
+    - name: Generate random number
+      id: random-number-generator
       run: echo $RANDOM
       shell: bash
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
