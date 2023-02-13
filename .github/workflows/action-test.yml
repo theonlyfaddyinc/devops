@@ -1,0 +1,43 @@
+name: "Pipeline Workflow Setup"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_call:
+    inputs:
+      sample_input:
+        required: true
+        type: string
+    secrets:
+      secret_token:
+        required: true  
+
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: Test C
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check env var
+        run: |
+              echo "Secret :  ${{ secrets.WORKFLOW_TOKEN }}"
+      - name: Checkout current repo!
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.secret_token }}
+      - id: test-action-1
+        uses: actions/test-action-1
+        with:
+          who-to-greet: 'Faddy'
+      - run: echo Hi
+
+  job2:
+    needs: job1
+    name: Job 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a simple step
+        run: echo "Run a simple step"
