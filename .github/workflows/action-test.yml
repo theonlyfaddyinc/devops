@@ -18,7 +18,7 @@ on:
 
 jobs:
   job1:
-    name: Test './.github/actions/test-action-1' run
+    name: Test 'test-action-1' run
     runs-on: ubuntu-latest
     steps:
       - name: Check env var
@@ -34,7 +34,7 @@ jobs:
           who-to-greet: 'Faddy'
       - run: echo Hi
   job2:
-    name: Test './.github/actions/test-action-1' run
+    name: Test 'test-action-2' run
     runs-on: ubuntu-latest
     steps:
       - name: Check env var
