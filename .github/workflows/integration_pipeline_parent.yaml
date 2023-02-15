@@ -1,0 +1,59 @@
+name: Integration Snapshot Parent
+run-name: ${{ github.ref_name }} | ${{ github.event_name }} | '${{ github.event.head_commit.message }}'
+
+on: workflow_dispatch
+
+jobs:
+  Build_Code:
+    name: Build Code
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: ./actions/setup-jdk-maven
+      with:
+        jdk_version: '14'
+        maven_version: '3.8.1'
+
+    - name: buildSnapshot
+      run: mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress
+  Run_Unit_Tests:
+    runs-on: ubuntu-latest
+    needs: [Build_Code]
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: ./actions/setup-jdk-maven
+      with:
+        jdk_version: '14'
+        maven_version: '3.8.1'
+
+    - name: Test
+      run: mvn test --update-snapshots --no-transfer-progress 
+      
+  Run_Functional_Tests:
+    runs-on: ubuntu-latest
+    needs: [Run_Unit_Tests]
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./actions/setup-jdk-maven
+      with:
+        jdk_version: '14'
+        maven_version: '3.8.1'
+
+    - name: verify
+      run: mvn verify --update-snapshots --no-transfer-progress     
+      
+  Evaluate:
+    runs-on: ubuntu-latest
+    needs: [Run_Functional_Tests]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check the JDK java-version
+      run: | 
+            java --version
+            mvn --version      
+    - name: evaluate
+      run: mvn help:evaluate -Dexpression=project.version --quiet -DforceStdout     
+      
