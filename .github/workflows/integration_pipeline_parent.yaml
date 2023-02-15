@@ -1,7 +1,7 @@
 name: Integration Snapshot Parent
 run-name: ${{ github.ref_name }} | ${{ github.event_name }} | '${{ github.event.head_commit.message }}'
 
-on: workflow_dispatch
+on: [workflow_dispatch, workflow_call]
 
 jobs:
   Build_Code:
