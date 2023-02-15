@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - uses: ./actions/setup-jdk-maven
+    - uses: ./composite_action/setup-jdk-maven
       with:
         jdk_version: '14'
         maven_version: '3.8.1'
@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - uses: ./actions/setup-jdk-maven
+    - uses: ./composite_action/setup-jdk-maven
       with:
         jdk_version: '14'
         maven_version: '3.8.1'
@@ -37,7 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ./actions/setup-jdk-maven
+    - uses: ./composite_action/setup-jdk-maven
       with:
         jdk_version: '14'
         maven_version: '3.8.1'
