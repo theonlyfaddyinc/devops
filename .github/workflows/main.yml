@@ -2,7 +2,7 @@ name: "Pipeline Workflow Setup"
 
 on:
   # push:
-  #   branches: [ "main" ]
+  #   branches: [ "!main" ]
   # pull_request:
   #   branches: [ "main" ]
   workflow_call:
@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  job1:
-    name: Job 1
+  build:
+    name: Build the code
     outputs:
       files_list: ${{ steps.files_copy_step.outputs.files_list }}
       workflow_source_path: ${{ steps.files_copy_step.outputs.workflow_source_path }}
