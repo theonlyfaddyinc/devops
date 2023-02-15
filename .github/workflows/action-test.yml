@@ -1,4 +1,4 @@
-name: "Pipeline Workflow Setup"
+name: Composite Action Test
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - id: test-action-1
-        uses: ./.github/actions/test-action-1
+        uses: ./actions/test-action-1
         with:
           who-to-greet: 'Faddy'
       - run: echo Hi
@@ -47,7 +47,7 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - id: test-action-2
         name: Run test-action-2
-        uses: ./test-action-2
+        uses: ./actions/test-action-2
         with:
           who-to-greet: 'Faddy Baba'
       - run: echo Hi
