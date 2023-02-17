@@ -1,0 +1,41 @@
+name: Graddle Deployment Workflow
+
+on:
+  workflow_call:
+    outputs:
+      deployment_type:
+        description: "The deployment tool used in this workflow"
+        value: ${{ jobs.build.outputs.deployment_type }}
+      deployment_status:
+        description: "The deployment status of this workflow"
+        value: ${{ jobs.build.outputs.deployment_status }}
+
+env:
+  DEPLOYMENT_METHOD: ${{ secrets.DEPLOYMENT_METHOD }}
+
+jobs:
+  build:
+    #runs-on: [ self-hosted, worker ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        if: env.DEPLOYMENT_METHOD == 'graddle'
+        uses: actions/checkout@v3
+      - name: Deploying
+        if: env.DEPLOYMENT_METHOD == 'graddle'
+        id: deployment
+        run: echo "Running a bunch of Graddle commands"
+    outputs:
+      deployment_type: env.DEPLOYMENT_METHOD
+      deployment_status: "Success"
+
+  build_finished:
+    needs: build
+    #runs-on: [ self-hosted, worker ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conclude build
+        if: env.DEPLOYMENT_METHOD == 'graddle'
+        run: |
+          echo Deployed project using ${{ needs.build.outputs.deployment_type }}.
+          echo Status: ${{ needs.build.outputs.deployment_status }}.
