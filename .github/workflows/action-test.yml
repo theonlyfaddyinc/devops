@@ -64,11 +64,19 @@ jobs:
       - name: Parse for specific value using jq
         id: parser
         run: |
-              user=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.version)
-              snapshot=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.version)
-              echo "USER=${user}" >> $GITHUB_OUTPUT
-              echo "SNAPSHOT=${snapshot}" >> $GITHUB_OUTPUT
+              build_lang_name=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.name)
+              build_lang_version=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.version)
+              build_tool_name=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.name)
+              build_tool_version=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.version)
+              echo "build_lang_name=${build_lang_name}" >> $GITHUB_OUTPUT
+              echo "build_lang_version=${build_lang_version}" >> $GITHUB_OUTPUT
+              echo "build_tool_name=${build_tool_name}" >> $GITHUB_OUTPUT
+              echo "build_tool_version=${build_tool_version}" >> $GITHUB_OUTPUT
+              echo "pipeline_repo=${{ steps.read_yaml.outputs.data }}" >> $GITHUB_OUTPUT
       - name: Print JSON Parser outputs
         run: |
-          echo ${{ steps.parser.outputs.USER }}
-          echo ${{ steps.parser.outputs.SNAPSHOT }}
+          echo ${{ steps.parser.outputs.build_lang_name }}
+          echo ${{ steps.parser.outputs.build_lang_version }}
+          echo ${{ steps.parser.outputs.build_tool_name }}
+          echo ${{ steps.parser.outputs.build_tool_version }}
+          echo ${{ steps.parser.outputs.pipeline_repo }}
