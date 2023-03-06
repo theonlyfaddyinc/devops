@@ -1,0 +1,31 @@
+name: Setup JDK & Maven 
+description: Setup the build tools with specific versions
+inputs:
+
+  maven_version:
+    description: Version of Maven to be installed
+    required: true
+    default: '3.6.3'
+  pipeline_repo: 
+    description: Config information at repo level in YAML
+    required: true
+  pipeline_global: 
+    description: Config information at Global level in YAML
+    required: true
+    
+# outputs:
+#   random-number:
+#     description: "Random number"
+#     value: ${{ steps.random-number-generator.outputs.random-number }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version:  ${{ inputs.maven_version }}
+
+    - name: Check the Maven version
+      shell: bash
+      run: | 
+            mvn --version

@@ -33,10 +33,12 @@ runs:
     # if {}
     - name: Set up JDK 14
       # if {{ }}
-      if: ${{ inputs.jdk_version }} == 14
-      uses: actions/setup-java@v1
+      # if: ${{ inputs.jdk_version }} == 14
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk@main
       with:
         java-version:  ${{ inputs.jdk_version }}
+        pipeline_repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}
     # else
     - name: Set up Maven
       uses: stCarolas/setup-maven@v4.5
