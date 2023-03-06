@@ -45,6 +45,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
+      - name: Clone global config
+        uses: actions/checkout@v3
+        with:
+          repository: theonlyfaddyinc/global_configs
+          ref: main
+          path: ${{ github.workspace }}/global_configs
       - id: test-action-2
         name: Run test-action-2
         uses: ./composite_actions/test-action-2
@@ -52,27 +58,29 @@ jobs:
           who-to-greet: 'Faddy Baba'
       - name: List all files in the github workspace
         run: ls -lta ${{ github.workspace }}
-      - id: read_yaml
-        name: Read Yaml
+      - id: read_pipeline_repo_yaml
+        name: Read Pipeline Repo Yaml
         uses: theonlyfaddyinc/read-yaml-into-json-string@v3
         with:
           filepath: ${{ github.workspace }}/pipeline.yaml
-      - name: Print text
-        run: |
-              echo '${{ steps.read_yaml.outputs.data }}'
-
+      - id: read_pipeline_global_yaml
+        name: Read Pipeline Repo Yaml
+        uses: theonlyfaddyinc/read-yaml-into-json-string@v3
+        with: 
+          filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
       - name: Parse for specific value using jq
         id: parser
         run: |
-              build_lang_name=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.name)
-              build_lang_version=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.version)
-              build_tool_name=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.name)
-              build_tool_version=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.version)
+              build_lang_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.name)
+              build_lang_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.version)
+              build_tool_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.name)
+              build_tool_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.version)
               echo "build_lang_name=${build_lang_name}" >> $GITHUB_OUTPUT
               echo "build_lang_version=${build_lang_version}" >> $GITHUB_OUTPUT
               echo "build_tool_name=${build_tool_name}" >> $GITHUB_OUTPUT
               echo "build_tool_version=${build_tool_version}" >> $GITHUB_OUTPUT
-              echo "pipeline_repo=${{ steps.read_yaml.outputs.data }}" >> $GITHUB_OUTPUT
+              echo "pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}" >> $GITHUB_OUTPUT
+              echo "pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}" >> $GITHUB_OUTPUT
       - name: Print JSON Parser outputs
         run: |
           echo ${{ steps.parser.outputs.build_lang_name }}
@@ -80,3 +88,4 @@ jobs:
           echo ${{ steps.parser.outputs.build_tool_name }}
           echo ${{ steps.parser.outputs.build_tool_version }}
           echo ${{ steps.parser.outputs.pipeline_repo }}
+          echo ${{ steps.parser.outputs.pipeline_global }}
