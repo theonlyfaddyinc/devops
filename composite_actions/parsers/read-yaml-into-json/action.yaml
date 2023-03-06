@@ -1,0 +1,32 @@
+name: Read YAML
+description: "Read a YAML file and return values"
+
+inputs:
+  filepath:
+    description: The path of the file that needs to be read
+    required: true
+
+outputs:
+  data: 
+    description: The output formatted in json
+    value: ${{ steps.parser.outputs.data }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: parser
+      shell: python
+      run: |
+        import yaml
+        import os
+        import json
+
+        with open("${{ inputs.filepath }}", 'r') as f:
+          config_file = yaml.safe_load(f)
+
+        outputs = dict()
+        outputs['data'] = json.dumps(config_file)
+
+        if "GITHUB_OUTPUT" in os.environ:
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              print(f"data={outputs['data']}", file=f)
