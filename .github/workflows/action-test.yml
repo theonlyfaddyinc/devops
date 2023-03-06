@@ -68,6 +68,8 @@ jobs:
         uses: theonlyfaddyinc/read-yaml-into-json-string@v3
         with: 
           filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
+      - name: Print all text
+        run : echo '${{ steps.read_pipeline_global_yaml.outputs.data }}'
       - name: Parse for specific value using jq
         id: parser
         run: |
