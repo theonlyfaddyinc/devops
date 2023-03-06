@@ -1,0 +1,39 @@
+---
+# pipeline config
+
+# Project configuration
+project:
+
+  # Note: for Java projects, this should be set to: "groupId:artifactId"
+  name: "groupId:artifactId"
+
+# Standard Library configuration
+standardLibrary:
+
+  # Version of the standard library that you would like to use
+  version: "master"
+
+# Build configuration
+build:
+
+  # Build language to use for build
+  # Note: maps to the language alias defined inside Jenkins: {language.name}-{language.version} (Example: jdk-open-11.0)
+  language:
+    name: "jdk-open"
+    version: "11.0"
+
+  # Build tool to use for build
+  # Note: maps to the tool alias defined inside Jenkins: {tool.name}-{tool.version} (Example: maven-3.6)
+  tool:
+    name: "maven"
+    version: "3.8"
+    settings: "maven-settings-xml"
+
+# Notification configuration
+notification:
+
+  teams:
+    channel:
+      success: "ms teams webhook"
+      failure: "ms teams webhook"
+
