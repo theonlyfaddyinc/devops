@@ -18,12 +18,12 @@ jobs:
         path: ${{ github.workspace }}/global_configs
     - id: read_pipeline_repo_yaml
       name: Read Pipeline Repo Yaml
-      uses: ./composite_actions/parsers/read-yaml-into-json-string@main
+      uses: ./composite_actions/parsers/read-yaml-into-json@main
       with:
         filepath: ${{ github.workspace }}/pipeline.yaml
     - id: read_pipeline_global_yaml
       name: Read Pipeline Repo Yaml
-      uses: ./composite_actions/parsers/read-yaml-into-json-string@main
+      uses: ./composite_actions/parsers/read-yaml-into-json@main
       with: 
         filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
     - name: Parse for specific value using jq
