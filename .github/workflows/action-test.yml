@@ -57,10 +57,18 @@ jobs:
         uses: theonlyfaddyinc/read-yaml-into-json-string@v3
         with:
           filepath: ${{ github.workspace }}/pipeline.yaml
+      - name: Print text
+        run: |
+              echo '${{ steps.read_yaml.outputs.data }}'
+
       - name: Parse for specific value using jq
         id: parser
         run: |
-          user=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.version)
-          snapshot=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.version)
-          echo "USER=${user}" >> $GITHUB_OUTPUT
-          echo "SNAPSHOT=${snapshot}" >> $GITHUB_OUTPUT
+              user=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.language.version)
+              snapshot=$(echo '${{ steps.read_yaml.outputs.data }}' | jq -r .build.tool.version)
+              echo "USER=${user}" >> $GITHUB_OUTPUT
+              echo "SNAPSHOT=${snapshot}" >> $GITHUB_OUTPUT
+      - name: Print JSON Parser outputs
+        run: |
+          echo ${{ steps.parser.outputs.USER }}
+          echo ${{ steps.parser.outputs.SNAPSHOT }}
