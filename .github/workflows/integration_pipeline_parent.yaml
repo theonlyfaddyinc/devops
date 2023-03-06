@@ -50,7 +50,7 @@ jobs:
             echo ${{ steps.parser.outputs.pipeline_global }}
     - uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk-maven@main
       with:
-        jdk_version: '14'
+        jdk_version: '13'
         maven_version: '3.8.1'
         pipeline_repo: ${{ steps.read_pipeline_repo_yaml.outputs.data }}
         pipeline_global: ${{ steps.read_pipeline_global_yaml.outputs.data }}
