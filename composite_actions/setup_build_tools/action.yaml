@@ -1,0 +1,48 @@
+name: Setup Build Tools
+description: Setup the build tools with specific versions
+inputs:
+  jdk_version:  # id of input
+    description: Version of JDK to be installed
+    required: true
+    default: '14'
+  maven_version:
+    description: Version of Maven to be installed
+    required: true
+    default: '3.6.3'
+  pipeline_repo: 
+    description: Config information at repo level in YAML
+    required: true
+  pipeline_global: 
+    description: Config information at Global level in YAML
+    required: true
+    
+# outputs:
+#   random-number:
+#     description: "Random number"
+#     value: ${{ steps.random-number-generator.outputs.random-number }}
+runs:
+  using: "composite"
+  steps:
+    # - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-1
+    #   shell: bash
+    # - id: random-number-generator
+    #   run: mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress --settings ${settings.config.build.tool.settingsPath} ${flags}
+    #   shell: bash
+    # - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+    #   shell: bash
+    # if {}
+    - name: Set up JDK 14
+      # if {{ }}
+      # if: ${{ inputs.jdk_version }} == 14
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk@main
+      with:
+        java-version:  ${{ inputs.jdk_version }}
+        pipeline_repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}
+    # else
+    - name: Set up Maven
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-maven@main
+      with:
+        maven-version:  ${{ inputs.maven_version }}
+        pipeline_repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}

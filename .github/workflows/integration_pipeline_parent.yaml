@@ -48,7 +48,7 @@ jobs:
             echo ${{ steps.parser.outputs.build_tool_version }}
             echo ${{ steps.parser.outputs.pipeline_repo }}
             echo ${{ steps.parser.outputs.pipeline_global }}
-    - uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk-maven@main
+    - uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
       with:
         jdk_version: '13'
         maven_version: '3.8.1'
