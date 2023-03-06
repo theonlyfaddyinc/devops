@@ -9,13 +9,13 @@ inputs:
     description: Version of Maven to be installed
     required: true
     default: '3.6.3'
-  
-  pipeline_local:
-    description: Local pipeline config file
+  pipeline_repo: 
+    description: Config information at repo level in YAML
     required: true
-  pipeline_global:
-    description: Local pipeline config file
+  pipeline_global: 
+    description: Config information at Global level in YAML
     required: true
+    
 # outputs:
 #   random-number:
 #     description: "Random number"
@@ -33,6 +33,7 @@ runs:
     # if {}
     - name: Set up JDK 14
       # if {{ }}
+      if: ${{ inputs.jdk_version }}
       uses: actions/setup-java@v1
       with:
         java-version:  ${{ inputs.jdk_version }}

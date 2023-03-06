@@ -52,6 +52,8 @@ jobs:
       with:
         jdk_version: '14'
         maven_version: '3.8.1'
+        pipeline_repo: ${{ steps.read_pipeline_repo_yaml.outputs.data }}
+        pipeline_global: ${{ steps.read_pipeline_global_yaml.outputs.data }}
 
     - name: buildSnapshot
       run: mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress
