@@ -60,12 +60,12 @@ jobs:
         run: ls -lta ${{ github.workspace }}
       - id: read_pipeline_repo_yaml
         name: Read Pipeline Repo Yaml
-        uses: theonlyfaddyinc/read-yaml-into-json-string@v3
+        uses: ./composite_actions/parsers/read-yaml-into-json-string@main
         with:
           filepath: ${{ github.workspace }}/pipeline.yaml
       - id: read_pipeline_global_yaml
         name: Read Pipeline Repo Yaml
-        uses: theonlyfaddyinc/read-yaml-into-json-string@v3
+        uses: ./composite_actions/parsers/read-yaml-into-json-string@main
         with: 
           filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
       - name: Print all text
@@ -86,9 +86,9 @@ jobs:
 
       - name: Print JSON Parser outputs
         run: |
-          echo ${{ steps.parser.outputs.build_lang_name }}
-          echo ${{ steps.parser.outputs.build_lang_version }}
-          echo ${{ steps.parser.outputs.build_tool_name }}
-          echo ${{ steps.parser.outputs.build_tool_version }}
-          echo ${{ steps.parser.outputs.pipeline_repo }}
-          echo ${{ steps.parser.outputs.pipeline_global }}
+              echo ${{ steps.parser.outputs.build_lang_name }}
+              echo ${{ steps.parser.outputs.build_lang_version }}
+              echo ${{ steps.parser.outputs.build_tool_name }}
+              echo ${{ steps.parser.outputs.build_tool_version }}
+              echo ${{ steps.parser.outputs.pipeline_repo }}
+              echo ${{ steps.parser.outputs.pipeline_global }}
