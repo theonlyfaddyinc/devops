@@ -82,7 +82,8 @@ jobs:
               echo "build_tool_name=${build_tool_name}" >> $GITHUB_OUTPUT
               echo "build_tool_version=${build_tool_version}" >> $GITHUB_OUTPUT
               echo "pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}" >> $GITHUB_OUTPUT
-              # echo "pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}" >> $GITHUB_OUTPUT
+              echo "pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}" 
+
       - name: Print JSON Parser outputs
         run: |
           echo ${{ steps.parser.outputs.build_lang_name }}
