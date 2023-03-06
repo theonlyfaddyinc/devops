@@ -1,4 +1,4 @@
-name: Setup JDK & Maven 
+name: Setup JDK 
 description: Setup the build tools with specific versions
 inputs:
   java-version:  # id of input

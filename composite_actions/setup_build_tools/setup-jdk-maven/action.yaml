@@ -41,12 +41,8 @@ runs:
         pipeline_global: ${{ inputs.pipeline_global }}
     # else
     - name: Set up Maven
-      uses: stCarolas/setup-maven@v4.5
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-maven@main
       with:
         maven-version:  ${{ inputs.maven_version }}
-
-    - name: Check the JDK & Maven versions
-      shell: bash
-      run: | 
-            java --version
-            mvn --version
+        pipeline_repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}

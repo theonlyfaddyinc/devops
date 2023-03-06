@@ -1,8 +1,8 @@
-name: Setup JDK & Maven 
+name: Setup Maven 
 description: Setup the build tools with specific versions
 inputs:
 
-  maven_version:
+  maven-version:
     description: Version of Maven to be installed
     required: true
     default: '3.6.3'
@@ -23,7 +23,7 @@ runs:
     - name: Set up Maven
       uses: stCarolas/setup-maven@v4.5
       with:
-        maven-version:  ${{ inputs.maven_version }}
+        maven-version:  ${{ inputs.maven-version }}
 
     - name: Check the Maven version
       shell: bash
