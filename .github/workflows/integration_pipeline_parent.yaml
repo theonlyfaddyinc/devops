@@ -23,7 +23,7 @@ jobs:
         filepath: ${{ github.workspace }}/pipeline.yaml
     - id: read_pipeline_global_yaml
       name: Read Pipeline Repo Yaml
-      uses: ./composite_actions/parsers/read_yaml_into_json@main
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
       with: 
         filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
     - name: Parse for specific value using jq
@@ -48,7 +48,7 @@ jobs:
             echo ${{ steps.parser.outputs.build_tool_version }}
             echo ${{ steps.parser.outputs.pipeline_repo }}
             echo ${{ steps.parser.outputs.pipeline_global }}
-    - uses: theonlyfaddyinc/devops-standard-library/composite_action/build_tools/setup-jdk-maven@main
+    - uses: theonlyfaddyinc/devops-standard-library/composite_action/setup_build_tools/setup-jdk-maven@main
       with:
         jdk_version: '14'
         maven_version: '3.8.1'
