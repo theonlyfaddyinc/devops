@@ -65,16 +65,17 @@ runs:
             echo "build_tool_settings = ${{ steps.pre_reqs.outputs.build_tools_settings }}"
     - name: Set up JDK 14
       # if {{ }}
-      # if: ${{ inputs.jdk_version }} == 14
+      if: ${{ steps.pre_reqs.outputs.build_lang_name }} == "jdk-open"
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk@main
       with:
-        java-version:  ${{ inputs.jdk_version }}
+        java-version:  ${{ steps.pre_reqs.outputs.build_lang_version }}
         pipeline_repo: ${{ inputs.pipeline_repo }}
         pipeline_global: ${{ inputs.pipeline_global }}
     # else
     - name: Set up Maven
+      if: ${{ steps.pre_reqs.outputs.build_tool_name }} == "maven"
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-maven@main
       with:
-        maven-version:  ${{ inputs.maven_version }}
+        maven-version:  ${{ steps.pre_reqs.outputs.build_tools_version }}
         pipeline_repo: ${{ inputs.pipeline_repo }}
         pipeline_global: ${{ inputs.pipeline_global }}
