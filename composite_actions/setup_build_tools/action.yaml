@@ -27,7 +27,7 @@ runs:
       shell: sh
       run:  |
             # traverse the json for build information
-            echo s$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build[] | [.name,.version,.settings] | @csv")
+            echo $(echo '${{ inputs.pipeline_repo }}' | jq -r ".build[] | [.name,.version,.settings] | @csv")
     # - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-1
     #   shell: bash
     # - id: random-number-generator
