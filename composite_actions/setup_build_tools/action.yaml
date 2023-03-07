@@ -44,6 +44,8 @@ runs:
               echo $i >> $GITHUB_OUTPUT
             done
             echo "test_var=test_var" >> $GITHUB_OUTPUT
+            echo "-------------------------"
+            cat $GITHUB_OUTPUT
 
     # - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-1
     #   shell: bash
