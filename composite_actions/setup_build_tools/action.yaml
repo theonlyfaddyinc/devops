@@ -60,9 +60,9 @@ runs:
             echo "Test Var = ${{ steps.pre_reqs.outputs.test_var }}"
             echo "build_lang_name = ${{ steps.pre_reqs.outputs.build_lang_name }}"
             echo "build_lang_version = ${{ steps.pre_reqs.outputs.build_lang_version }}"
-            echo "build_tool_name = ${{ steps.pre_reqs.outputs.build_tool_name }}"
-            echo "build_tool_version = ${{ steps.pre_reqs.outputs.build_tool_version }}"
-            echo "build_tool_settings = ${{ steps.pre_reqs.outputs.build_tool_settings }}"
+            echo "build_tool_name = ${{ steps.pre_reqs.outputs.build_tools_name }}"
+            echo "build_tool_version = ${{ steps.pre_reqs.outputs.build_tools_version }}"
+            echo "build_tool_settings = ${{ steps.pre_reqs.outputs.build_tools_settings }}"
     - name: Set up JDK 14
       # if {{ }}
       # if: ${{ inputs.jdk_version }} == 14
