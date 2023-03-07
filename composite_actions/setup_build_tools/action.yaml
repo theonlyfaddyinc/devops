@@ -39,6 +39,8 @@ runs:
             IFS=',' read -ra ENV_VARS <<< "$BUILD_TOOLS"
             echo "ENV_VARS=$ENV_VARS"
             for i in "${ENV_VARS[@]}"; do
+              echo "--------------------"
+              echo $i
               echo $i >> $GITHUB_OUTPUT
             done
             echo "test_var=test_var" >> $GITHUB_OUTPUT
