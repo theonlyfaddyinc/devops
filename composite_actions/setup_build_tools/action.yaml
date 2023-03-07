@@ -27,7 +27,10 @@ runs:
       shell: sh
       run:  |
             # traverse the json for build information
-            echo $(echo '${{ inputs.pipeline_repo }}' | jq -r ".build[] | [.name,.version,.settings] | @csv")
+            export BUILD_TOOLS='$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build[] | [.name,.version,.settings] | @csv")'
+            echo "Build Tools :"
+            echo "$BUILD_TOOLS" | while IFS= read -r line ; do echo $line; done
+
     # - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-1
     #   shell: bash
     # - id: random-number-generator
