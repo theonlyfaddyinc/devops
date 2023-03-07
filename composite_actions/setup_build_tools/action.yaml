@@ -24,9 +24,9 @@ runs:
   using: "composite"
   steps:
     - name: Identify built toolings set
-      shell: sh
+      shell: bash
       run:  |
-            #!/bin/sh
+            
             # traverse the json for build information
             #export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv")
             echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language'
