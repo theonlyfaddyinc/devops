@@ -22,7 +22,7 @@ jobs:
       with:
         filepath: ${{ github.workspace }}/pipeline.yaml
     - id: read_pipeline_global_yaml
-      name: Read Pipeline Repo Yaml
+      name: Read Pipeline Global Yaml
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
       with: 
         filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
