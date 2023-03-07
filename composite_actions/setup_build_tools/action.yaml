@@ -28,9 +28,7 @@ runs:
       run:  |
             # traverse the json for build information
             #export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv")
-            echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv' >> build_language_info.txt
-            echo "Build Tools :"
-            cat build_language_info.txt >> $var1
+            echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv' >>  var1
             echo "var1=$var"
             for env_vars in ${var1//,/ };  do    echo "$env_vars" ; done
 
