@@ -33,7 +33,10 @@ runs:
             echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)")'
             export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv')
             echo "BUILD_TOOLS=$BUILD_TOOLS"
-            for env_vars in ${BUILD_TOOLS//,/ };  do    echo "$env_vars" ; done
+            for env_vars in ${BUILD_TOOLS//,/}
+            do
+              echo "$env_vars"
+            done
 
     # - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-1
     #   shell: bash
