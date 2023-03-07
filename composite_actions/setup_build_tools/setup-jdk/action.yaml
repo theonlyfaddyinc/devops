@@ -23,4 +23,6 @@ runs:
     - name: Check the JDK version
       shell: bash
       run: | 
+            echo "######## Validating the JDK Installed Version #########"
             java --version
+            echo "#######################################################"

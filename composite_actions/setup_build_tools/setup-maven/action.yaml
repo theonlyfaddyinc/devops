@@ -28,4 +28,6 @@ runs:
     - name: Check the Maven version
       shell: bash
       run: | 
+            echo "######## Validating the Maven Installed Version #########"
             mvn --version
+            echo "#########################################################"
