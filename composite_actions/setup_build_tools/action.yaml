@@ -30,12 +30,12 @@ runs:
             
             # traverse the json for build information
             #export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv")
-            export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv'  |  tr -d '"')
+            export BUILD_LANGS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv'  |  tr -d '"')
+            export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.tool | to_entries | map("build_lang_\(.key)=\(.value)") | @csv'  |  tr -d '"')
+            echo "BUILD_LANGS=$BUILD_LANGS"
             echo "BUILD_TOOLS=$BUILD_TOOLS"
-            # for env_vars in ${BUILD_TOOLS//,/}
-            # do
-            #   echo "--$env_vars"
-            # done
+            BUILD_TOOLS=$BUILD_TOOLS,$BUILD_LANGS
+            echo "ALL BUILD  = $BUILD_TOOLS"
             IFS=',' read -ra ENV_VARS <<< "$BUILD_TOOLS"
             echo "ENV_VARS=$ENV_VARS"
             for i in "${ENV_VARS[@]}"; do
