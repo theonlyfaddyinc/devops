@@ -8,7 +8,10 @@ inputs:
     description: Config information at Global level in YAML
     required: true
     
-# outputs:
+outputs:
+    maven_settings_xml:
+      description: "Maven settings file defined in the local repo level"
+      value: ${{ steps.pre_reqs.outputs.build_tools_settings }}
 #   random-number:
 #     description: "Random number"
 #     value: ${{ steps.random-number-generator.outputs.random-number }}
@@ -38,6 +41,7 @@ runs:
             # echo "-------------------------"
             # cat $GITHUB_OUTPUT
     - name: Language & Build Tools names & versions
+      id: validate_info
       shell: bash
       run:  |
             echo "######## Validating the Language & Build Tools names & versions #########"
@@ -49,6 +53,7 @@ runs:
             echo "# build_tool_settings = ${{ steps.pre_reqs.outputs.build_tools_settings }}"
             echo "##########################################################################"
     - name: Set up JDK 14
+      id: setup_jdk
       if: ${{ steps.pre_reqs.outputs.build_lang_name }} == "jdk-open"
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk@main
       with:
@@ -56,9 +61,14 @@ runs:
         pipeline_repo: ${{ inputs.pipeline_repo }}
         pipeline_global: ${{ inputs.pipeline_global }}
     - name: Set up Maven
+      id: setup_maven
       if: ${{ steps.pre_reqs.outputs.build_tool_name }} == "maven"
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-maven@main
       with:
         maven-version:  ${{ steps.pre_reqs.outputs.build_tools_version }}
         pipeline_repo: ${{ inputs.pipeline_repo }}
         pipeline_global: ${{ inputs.pipeline_global }}
+    - name: Prepare build output information for further reference
+      id: build_output_info
+      shell: bash
+      run:  |

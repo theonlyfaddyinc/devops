@@ -29,34 +29,36 @@ jobs:
     - name: Parse for specific value using jq
       id: parser
       run: |
-            build_lang_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.name)
-            build_lang_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.version)
-            build_tool_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.name)
-            build_tool_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.version)
-            echo "build_lang_name=${build_lang_name}" >> $GITHUB_OUTPUT
-            echo "build_lang_version=${build_lang_version}" >> $GITHUB_OUTPUT
-            echo "build_tool_name=${build_tool_name}" >> $GITHUB_OUTPUT
-            echo "build_tool_version=${build_tool_version}" >> $GITHUB_OUTPUT
+            # build_lang_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.name)
+            # build_lang_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.version)
+            # build_tool_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.name)
+            # build_tool_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.version)
+            # echo "build_lang_name=${build_lang_name}" >> $GITHUB_OUTPUT
+            # echo "build_lang_version=${build_lang_version}" >> $GITHUB_OUTPUT
+            # echo "build_tool_name=${build_tool_name}" >> $GITHUB_OUTPUT
+            # echo "build_tool_version=${build_tool_version}" >> $GITHUB_OUTPUT
             echo 'pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}' >> $GITHUB_OUTPUT
             echo 'pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}' >> $GITHUB_OUTPUT
 
     - name: Print JSON Parser outputs
       run: |
-            echo ${{ steps.parser.outputs.build_lang_name }}
-            echo ${{ steps.parser.outputs.build_lang_version }}
-            echo ${{ steps.parser.outputs.build_tool_name }}
-            echo ${{ steps.parser.outputs.build_tool_version }}
+            # echo ${{ steps.parser.outputs.build_lang_name }}
+            # echo ${{ steps.parser.outputs.build_lang_version }}
+            # echo ${{ steps.parser.outputs.build_tool_name }}
+            # echo ${{ steps.parser.outputs.build_tool_version }}
             echo ${{ steps.parser.outputs.pipeline_repo }}
             echo ${{ steps.parser.outputs.pipeline_global }}
-    - uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
+    - name: Setup build tools & runtime installation
+      id: setup_build_tools
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
       with:
-        jdk_version: '13'
-        maven_version: '3.8.1'
         pipeline_repo: ${{ steps.read_pipeline_repo_yaml.outputs.data }}
         pipeline_global: ${{ steps.read_pipeline_global_yaml.outputs.data }}
 
     - name: buildSnapshot
-      run: mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress
+      run:  |
+              echo "Maven call with settings file - ${{ steps.setup_build_tools.outputs.maven_settings_xml }}"
+              mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress
   # Run_Unit_Tests:
   #   runs-on: ubuntu-latest
   #   needs: [Build_Code]
