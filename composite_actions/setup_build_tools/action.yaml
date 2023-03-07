@@ -24,6 +24,7 @@ runs:
   using: "composite"
   steps:
     - name: Identify built toolings set
+      id: pre_reqs
       shell: bash
       run:  |
             
@@ -33,13 +34,14 @@ runs:
             echo "BUILD_TOOLS=$BUILD_TOOLS"
             for env_vars in ${BUILD_TOOLS//,/}
             do
-              echo "$env_vars"
+              echo "--$env_vars"
             done
             # IFS=',' read -ra ENV_VARS <<< "$BUILD_TOOLS"
             # echo "ENV_VARS=$ENV_VARS"
             # for i in "${ADDR[@]}"; do
             #   echo "$i"
             # done
+            echo "test_var=test_var" >> $GITHUB_OUTPUT
 
     # - run: echo Hello ${{ inputs.who-to-greet }}. From test-action-1
     #   shell: bash
@@ -49,6 +51,10 @@ runs:
     # - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
     #   shell: bash
     # if {}
+    - name: Test step
+      shell: bash
+      run:  |
+            echo "Test Var = ${{ steps.pre_reqs.outputs.test_var }}""
     - name: Set up JDK 14
       # if {{ }}
       # if: ${{ inputs.jdk_version }} == 14
