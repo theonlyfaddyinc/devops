@@ -29,9 +29,8 @@ runs:
       run:  |
             
             # traverse the json for build information
-            #export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv")
             export BUILD_LANGS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv'  |  tr -d '"')
-            export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.tool | to_entries | map("build_lang_\(.key)=\(.value)") | @csv'  |  tr -d '"')
+            export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.tool | to_entries | map("build_tools_\(.key)=\(.value)") | @csv'  |  tr -d '"')
             echo "BUILD_LANGS=$BUILD_LANGS"
             echo "BUILD_TOOLS=$BUILD_TOOLS"
             BUILD_TOOLS=$BUILD_TOOLS,$BUILD_LANGS
@@ -61,6 +60,9 @@ runs:
             echo "Test Var = ${{ steps.pre_reqs.outputs.test_var }}"
             echo "build_lang_name = ${{ steps.pre_reqs.outputs.build_lang_name }}"
             echo "build_lang_version = ${{ steps.pre_reqs.outputs.build_lang_version }}"
+            echo "build_tool_name = ${{ steps.pre_reqs.outputs.build_tool_name }}"
+            echo "build_tool_version = ${{ steps.pre_reqs.outputs.build_tool_version }}"
+            echo "build_tool_settings = ${{ steps.pre_reqs.outputs.build_tool_settings }}"
     - name: Set up JDK 14
       # if {{ }}
       # if: ${{ inputs.jdk_version }} == 14
