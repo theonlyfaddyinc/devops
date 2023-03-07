@@ -39,7 +39,7 @@ runs:
             IFS=',' read -ra ENV_VARS <<< "$BUILD_TOOLS"
             echo "ENV_VARS=$ENV_VARS"
             for i in "${ENV_VARS[@]}"; do
-              echo "$i"
+              echo "$i" >> $GITHUB_OUTPUT
             done
             echo "test_var=test_var" >> $GITHUB_OUTPUT
 
@@ -55,6 +55,8 @@ runs:
       shell: bash
       run:  |
             echo "Test Var = ${{ steps.pre_reqs.outputs.test_var }}"
+            echo "build_lang_name = ${{ steps.pre_reqs.outputs.build_lang_name }}"
+            echo "build_lang_version = ${{ steps.pre_reqs.outputs.build_lang_version }}"
     - name: Set up JDK 14
       # if {{ }}
       # if: ${{ inputs.jdk_version }} == 14
