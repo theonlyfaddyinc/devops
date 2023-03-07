@@ -30,7 +30,7 @@ runs:
             
             # traverse the json for build information
             #export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r ".build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv")
-            export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv')
+            export BUILD_TOOLS=$(echo '${{ inputs.pipeline_repo }}' | jq -r '.build.language | to_entries | map("build_lang_\(.key)=\(.value)") | @csv') | grep -v '"'
             echo "BUILD_TOOLS=$BUILD_TOOLS"
             # for env_vars in ${BUILD_TOOLS//,/}
             # do
