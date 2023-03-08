@@ -1,0 +1,58 @@
+name: Build the project 
+description: Build the project accordingly using the corresponding tools and commands
+inputs:
+  pipeline_repo: 
+    description: Config information at repo level in YAML
+    required: true
+  pipeline_global: 
+    description: Config information at Global level in YAML
+    required: true
+  build_lang_name:
+    description: "Build Language"
+    required: false
+  build_lang_version:
+    description: "Build Language Version"
+    required: false
+  build_tool_name:
+    description: "Build Tool Name"
+    required: false
+  build_tool_version:
+    description: "Build Tool Version Setup"
+    required: false
+  build_tool_settings:
+    description: "Settings file defined in the local repo level"
+    required: false
+  pipeline_type:
+    description: "Pipeline type - SNAPSHOT or RELEASE"
+    required: true
+  
+
+runs:
+  using: "composite"
+  steps:
+    - name: Pre step
+      id: pre_reqs
+      shell: bash
+      run:  |
+            echo "Determing the pipeline type."
+
+            echo "####### Initiate Build for SNAPSHOT "#######"
+    - name: Build step for Snapshot
+      if: ${{ inputs.pipeline_type }} == "SNAPSHOT"
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_snapshot@main
+      with:
+        pipeline_repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}
+
+    - name: Build step for RELEASE
+      if: ${{ inputs.pipeline_type }} == "RELEASE"
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_release@main
+      with:
+        pipeline_repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}
+
+    - name: Failure step
+      if: ${{ failure() }}
+      shell: bash
+      run:  |
+            echo "!!!!! Failure section !!!!!!"
