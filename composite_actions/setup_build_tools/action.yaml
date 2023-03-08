@@ -64,6 +64,7 @@ runs:
             echo "# build_tool_version = ${{ steps.pre_reqs.outputs.build_tools_version }}"
             echo "# build_tool_settings = ${{ steps.pre_reqs.outputs.build_tools_settings }}"
             echo "##########################################################################"
+            echo -e "\033[31;1;4mHello\033[0m"
     - name: Set up JDK 14
       id: setup_jdk
       if: ${{ steps.pre_reqs.outputs.build_lang_name }} == "jdk-open"
