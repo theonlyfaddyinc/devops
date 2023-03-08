@@ -9,22 +9,13 @@ inputs:
     required: true
   build_lang_name:
     description: "Build Language"
-    required: true
-  build_lang_version:
-    description: "Build Language Version"
-    required: true
+    required: false
   build_tool_name:
     description: "Build Tool Name"
-    required: true
-  build_tool_version:
-    description: "Build Tool Version Setup"
-    required: true
+    required: false
   build_tool_settings:
     description: "Settings file defined in the local repo level"
-    required: true
-  pipeline_type:
-    description: "Pipeline type - SNAPSHOT or RELEASE"
-    required: true
+    required: false
   
 
 runs:
@@ -34,11 +25,9 @@ runs:
       id: pre_reqs
       shell: bash
       run:  |
-            echo "Determing the pipeline type."
-
-            echo "####### Initiate Build for SNAPSHOT "#######"
+            echo "####### Build for RELEASE "#######"
     - name: Build step for Snapshot
-      if: ${{ inputs.pipeline_type }} == "SNAPSHOT"
+      if: ${{ inputs.build_tool_name }} == "SNAPSHOT"
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_snapshot@main
       with:
         pipeline_repo: ${{ inputs.pipeline_repo }}

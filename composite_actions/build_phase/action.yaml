@@ -10,14 +10,8 @@ inputs:
   build_lang_name:
     description: "Build Language"
     required: false
-  build_lang_version:
-    description: "Build Language Version"
-    required: false
   build_tool_name:
     description: "Build Tool Name"
-    required: false
-  build_tool_version:
-    description: "Build Tool Version Setup"
     required: false
   build_tool_settings:
     description: "Settings file defined in the local repo level"
@@ -35,7 +29,7 @@ runs:
       shell: bash
       run:  |
             echo "Determing the pipeline type."
-
+            
             echo "####### Initiate Build for SNAPSHOT "#######"
     - name: Build step for Snapshot
       if: ${{ inputs.pipeline_type }} == "SNAPSHOT"

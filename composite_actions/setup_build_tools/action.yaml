@@ -9,8 +9,20 @@ inputs:
     required: true
     
 outputs:
-    maven_settings_xml:
-      description: "Maven settings file defined in the local repo level"
+    build_lang_name:
+      description: "Build Language"
+      value: ${{ steps.pre_reqs.outputs.build_tools_settings }}
+    build_lang_version:
+      description: "Build Language Version"
+      value: ${{ steps.pre_reqs.outputs.build_tools_settings }}
+    build_tool_name:
+      description: "Build Tool Name"
+      value: ${{ steps.pre_reqs.outputs.build_tools_settings }}
+    build_tool_version:
+      description: "Build Tool Version Setup"
+      value: ${{ steps.pre_reqs.outputs.build_tools_settings }}
+    build_tool_settings:
+      description: "Settings file defined in the local repo level"
       value: ${{ steps.pre_reqs.outputs.build_tools_settings }}
 #   random-number:
 #     description: "Random number"
