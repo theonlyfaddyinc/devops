@@ -4,7 +4,7 @@ run-name: ${{ github.ref_name }} | ${{ github.event_name }} | '${{ github.event.
 on: [workflow_dispatch, workflow_call]
 
 jobs:
-  Build_Code:
+  BUILD_TEST_TEST_FUNC:
     name: Build Code
     runs-on: ubuntu-latest
     steps:
@@ -16,46 +16,37 @@ jobs:
         repository: theonlyfaddyinc/global_configs
         ref: main
         path: ${{ github.workspace }}/global_configs
-    - id: read_pipeline_repo_yaml
-      name: Read Pipeline Repo Yaml
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
-      with:
-        filepath: ${{ github.workspace }}/pipeline.yaml
-    - id: read_pipeline_global_yaml
-      name: Read Pipeline Global Yaml
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
-      with: 
-        filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
-    - name: Parse for specific value using jq
-      id: parser
-      run: |
-            # build_lang_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.name)
-            # build_lang_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.language.version)
-            # build_tool_name=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.name)
-            # build_tool_version=$(echo '${{ steps.read_pipeline_repo_yaml.outputs.data }}' | jq -r .build.tool.version)
-            # echo "build_lang_name=${build_lang_name}" >> $GITHUB_OUTPUT
-            # echo "build_lang_version=${build_lang_version}" >> $GITHUB_OUTPUT
-            # echo "build_tool_name=${build_tool_name}" >> $GITHUB_OUTPUT
-            # echo "build_tool_version=${build_tool_version}" >> $GITHUB_OUTPUT
-            echo 'pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}' >> $GITHUB_OUTPUT
-            echo 'pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}' >> $GITHUB_OUTPUT
+    # - id: read_pipeline_repo_yaml
+    #   name: Read Pipeline Repo Yaml
+    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
+    #   with:
+    #     filepath: ${{ github.workspace }}/pipeline.yaml
+    # - id: read_pipeline_global_yaml
+    #   name: Read Pipeline Global Yaml
+    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
+    #   with: 
+    #     filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
+    # - name: Parse for specific value using jq
+    #   id: parser
+    #   run: |
+    #         echo 'pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}' >> $GITHUB_OUTPUT
+    #         echo 'pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}' >> $GITHUB_OUTPUT
 
     - name: Print JSON Parser outputs
-      run: |
-            # echo ${{ steps.parser.outputs.build_lang_name }}
-            # echo ${{ steps.parser.outputs.build_lang_version }}
-            # echo ${{ steps.parser.outputs.build_tool_name }}
-            # echo ${{ steps.parser.outputs.build_tool_version }}
-            echo ${{ steps.parser.outputs.pipeline_repo }}
-            echo ${{ steps.parser.outputs.pipeline_global }}
+      id: read_yaml
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/read_repo_global_yaml@main
+      with:
+        local_config_path: ${{ github.workspace }}/pipeline.yaml
+        global_config_path: ${{ github.workspace }}/global_configs/pipeline-global.yaml
+
     - name: Setup build tools & runtime installation
       id: setup_build_tools
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
       with:
-        pipeline_repo: ${{ steps.read_pipeline_repo_yaml.outputs.data }}
-        pipeline_global: ${{ steps.read_pipeline_global_yaml.outputs.data }}
+        pipeline_repo: ${{ steps.read_yaml.outputs.pipeline_repo }}
+        pipeline_global: ${{ steps.read_yaml.outputs.pipeline_global }}
 
-    - name: buildSnapshot
+    - name: Build Snapshot
       run:  |
               echo "Maven call with settings file - ${{ steps.setup_build_tools.outputs.maven_settings_xml }}"
               mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress

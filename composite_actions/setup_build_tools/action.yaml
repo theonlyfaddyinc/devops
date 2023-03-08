@@ -57,14 +57,12 @@ runs:
       shell: bash
       run:  |
             echo -e "\033[93;1m######## Validating the Language & Build Tools names & versions #########"
-            echo -e "\033[93m# Test Var = ${{ steps.pre_reqs.outputs.test_var }}"
             echo -e "\033[93m# build_lang_name = ${{ steps.pre_reqs.outputs.build_lang_name }}"
             echo -e "\033[93m# build_lang_version = ${{ steps.pre_reqs.outputs.build_lang_version }}"
             echo -e "\033[93m# build_tool_name = ${{ steps.pre_reqs.outputs.build_tools_name }}"
             echo -e "\033[93m# build_tool_version = ${{ steps.pre_reqs.outputs.build_tools_version }}"
             echo -e "\033[93m# build_tool_settings = ${{ steps.pre_reqs.outputs.build_tools_settings }}"
             echo -e "\033[93;1m##########################################################################"
-            echo -e "\033[93;1mHello\033[0m"
     - name: Set up JDK 14
       id: setup_jdk
       if: ${{ steps.pre_reqs.outputs.build_lang_name }} == "jdk-open"

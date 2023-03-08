@@ -1,0 +1,38 @@
+name: Read YAML Config files
+description: Read Repo & Global Pipeline YAML files
+
+inputs:
+  local_config_path:
+    description: The path to pipeline-global.yaml file
+    required: true
+  global_config_path:
+    description: The path to pipeline-global.yaml file
+    required: true
+
+outputs:
+  pipeline_repo: 
+    description: The repo level pipeline YAML in json
+    value: ${{ steps.parser.outputs.pipeline_repo }}
+  pipeline_global: 
+    description: The global level pipeline YAML in json
+    value: ${{ steps.parser.outputs.pipeline_global }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: read_pipeline_repo_yaml
+      name: Read Pipeline Repo Yaml
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
+      with:
+        filepath: ${{ inputs.local_config_path }}
+    - id: read_pipeline_global_yaml
+      name: Read Pipeline Global Yaml
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
+      with: 
+        filepath: ${{ inputs.global_config_path }}
+    - name: Parse for specific value using jq
+      id: parser
+      shell: bash
+      run: |
+            echo 'pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}' >> $GITHUB_OUTPUT
+            echo 'pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}' >> $GITHUB_OUTPUT
