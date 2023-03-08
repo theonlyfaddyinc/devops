@@ -34,7 +34,7 @@ jobs:
 
     - name: Print JSON Parser outputs
       id: read_yaml
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/read_repo_global_yaml@main
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_repo_global_yaml@main
       with:
         local_config_path: ${{ github.workspace }}/pipeline.yaml
         global_config_path: ${{ github.workspace }}/global_configs/pipeline-global.yaml
