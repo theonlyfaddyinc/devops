@@ -5,30 +5,36 @@ on: [workflow_dispatch, workflow_call]
 
 jobs:
   BUILD_TEST_TEST_FUNC:
-    name: Build Code
+    name: Build Code | Run Unit Test | Run Functional Test
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout current repo!
-      uses: actions/checkout@v3
-    - name: Clone global config repo under ./global_config
-      uses: actions/checkout@v3
+    # - name: Checkout current repo!
+    #   uses: actions/checkout@v3
+    # - name: Clone global config repo under ./global_config
+    #   uses: actions/checkout@v3
+    #   with:
+    #     repository: theonlyfaddyinc/global_configs
+    #     ref: main
+    #     path: ${{ github.workspace }}/global_configs
+    # - name: Read YAML config files
+    #   id: read_yaml
+    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_repo_global_yaml@main
+    #   with:
+    #     local_config_path: pipeline.yaml
+    #     global_config_path: global_configs/pipeline-global.yaml
+    - name: Prepare - Checkout Repo(s) and Read YAML(s)
+      id: pre_build
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/prepare_phase/pre_build_steps@main
       with:
-        repository: theonlyfaddyinc/global_configs
-        ref: main
-        path: ${{ github.workspace }}/global_configs
-    - name: Read YAML config files
-      id: read_yaml
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_repo_global_yaml@main
-      with:
-        local_config_path: ${{ github.workspace }}/pipeline.yaml
-        global_config_path: ${{ github.workspace }}/global_configs/pipeline-global.yaml
+        global_config_repo: "theonlyfaddyinc/global_configs"
+        global_config_repo_checkout_path: "global_configs"
 
     - name: Setup build tools & runtime installation
       id: setup_build_tools
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
       with:
-        pipeline_repo: ${{ steps.read_yaml.outputs.pipeline_repo }}
-        pipeline_global: ${{ steps.read_yaml.outputs.pipeline_global }}
+        pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+        pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
 
     - name: Build Snapshot
       run:  |

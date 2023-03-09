@@ -1,0 +1,39 @@
+name: Checkout Repo (Local & Global) and Read Config YAMLs (Local & Global)
+description: Checkout Repo (Local & Global) and Read Config YAMLs (Local & Global)
+
+inputs:
+  global_config_repo:
+    description: The global config centralized repo
+    required: false
+    default: "theonlyfaddyinc/global_configs"
+  global_config_repo_checkout_path:
+    description: The global config repo checkout relative path
+    required: false
+    default: "global_configs"
+
+outputs:
+  pipeline_repo: 
+    description: The repo level pipeline YAML in json
+    value: ${{ steps.read_repo_and_global_yaml.outputs.pipeline_repo }}
+  pipeline_global: 
+    description: The global level pipeline YAML in json
+    value: ${{ steps.read_repo_and_global_yaml.outputs.pipeline_global }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: checkout_repo_and_global_config
+      name: Checkout Repo (Local & Global) 
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/prepare_phase/checkout_repo_global_config@main
+      with:
+        global_config_repo: ${{ inputs.global_config_repo }}
+        global_config_repo_checkout_path: ${{ inputs.global_config_repo_checkout_path }}
+    - id: read_repo_and_global_yaml
+      name: Read Config YAMLs (Local & Global)
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_repo_global_yaml@main
+      with:
+        local_config_path: pipeline.yaml
+        global_config_path: ${{ inputs.global_config_repo_checkout_path }}/pipeline-global.yaml
+        
+
+

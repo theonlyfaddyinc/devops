@@ -18,7 +18,7 @@ inputs:
     required: false
   pipeline_type:
     description: "Pipeline type - SNAPSHOT or RELEASE"
-    required: true
+    required: false
   
 
 runs:
