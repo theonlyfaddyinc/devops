@@ -39,4 +39,4 @@ runs:
     - name: Print YAML read confirmation
       shell: bash
       run:  |
-            echo -e "\033[93;1m######## Read of pipeline.yaml and ${{ inputs.global_config_path }} completed #########"
+            echo -e "\033[32;1m######## Read of pipeline.yaml and ${{ inputs.global_config_path }} completed #########"
