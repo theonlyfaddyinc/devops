@@ -36,3 +36,7 @@ runs:
       run: |
             echo 'pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}' >> $GITHUB_OUTPUT
             echo 'pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}' >> $GITHUB_OUTPUT
+    - name: Print YAML read confirmation
+      shell: bash
+      run:  |
+            echo -e "\033[93;1m######## Read of pipeline.yaml and ${{ inputs.global_config_path }} completed #########"

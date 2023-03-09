@@ -31,5 +31,10 @@ runs:
         repository: ${{ inputs.global_config_repo }}
         ref: main
         path: ${{ github.workspace }}/${{ inputs.global_config_repo_checkout_path }}
+    - name: Print Checkout confirmation
+      shell: bash
+      run:  |
+            echo -e "\033[93;1m######## Check out of repo & ${{ inputs.global_config_repo }} completed #########"
+            # echo -e "\033[93;1m#################################################################################"
 
 
