@@ -16,23 +16,7 @@ jobs:
         repository: theonlyfaddyinc/global_configs
         ref: main
         path: ${{ github.workspace }}/global_configs
-    # - id: read_pipeline_repo_yaml
-    #   name: Read Pipeline Repo Yaml
-    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
-    #   with:
-    #     filepath: ${{ github.workspace }}/pipeline.yaml
-    # - id: read_pipeline_global_yaml
-    #   name: Read Pipeline Global Yaml
-    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_yaml_into_json@main
-    #   with: 
-    #     filepath: ${{ github.workspace }}/global_configs/pipeline-global.yaml
-    # - name: Parse for specific value using jq
-    #   id: parser
-    #   run: |
-    #         echo 'pipeline_repo=${{ steps.read_pipeline_repo_yaml.outputs.data }}' >> $GITHUB_OUTPUT
-    #         echo 'pipeline_global=${{ steps.read_pipeline_global_yaml.outputs.data }}' >> $GITHUB_OUTPUT
-
-    - name: Print JSON Parser outputs
+    - name: Read YAML config files
       id: read_yaml
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/parsers/read_repo_global_yaml@main
       with:
