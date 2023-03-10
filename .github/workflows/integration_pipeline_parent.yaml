@@ -23,9 +23,11 @@ jobs:
         pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
 
     - name: Build Snapshot
-      run:  |
-              echo "Maven call with settings file - ${{ steps.setup_build_tools.outputs.maven_settings_xml }}"
-              mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress
+      id: build_Snapshot
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildSnapshot@main
+      with:
+        flags: ''
+        
   # Run_Unit_Tests:
   #   runs-on: ubuntu-latest
   #   needs: [Build_Code]
