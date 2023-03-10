@@ -9,6 +9,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: setup git config
+      run: |
+        git config user.email "abinstephen@gmail.com"
+        git config user.name "abinstephen"
+        
     - name: Build Release with Maven
       shell: bash
       run: | 
