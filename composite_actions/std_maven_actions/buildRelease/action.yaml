@@ -12,8 +12,8 @@ runs:
     - name: setup git config
       shell: bash
       run: |
-        git config user.email "abinstephen@gmail.com"
-        git config user.name "abinstephen"
+        git config user.email "theonlyfaddyinc@gmail.com"
+        git config user.name "theonlyfaddyinc"
         
     - name: Build Release with Maven
       shell: bash
