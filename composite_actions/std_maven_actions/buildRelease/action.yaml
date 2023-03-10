@@ -16,8 +16,6 @@ runs:
         git config user.name "abinstephen"
         
     - name: Build Release with Maven
-      env:
-        GITHUB_TOKEN: ${{ secrets.ABIN_GITHUB_TOKEN }}
       shell: bash
       run: | 
             mvn --version
