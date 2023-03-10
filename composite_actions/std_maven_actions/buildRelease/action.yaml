@@ -12,10 +12,12 @@ runs:
     - name: setup git config
       shell: bash
       run: |
-        git config user.email "theonlyfaddyinc@gmail.com"
-        git config user.name "theonlyfaddyinc"
+        git config user.email "abinstephen@gmail.com"
+        git config user.name "abinstephen"
         
     - name: Build Release with Maven
+      env:
+        GITHUB_TOKEN: ${{ secrets.ABIN_GITHUB_TOKEN }}
       shell: bash
       run: | 
             mvn --version
