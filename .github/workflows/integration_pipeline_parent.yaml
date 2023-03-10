@@ -23,7 +23,7 @@ jobs:
         pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
 
     - name: Build Snapshot
-      id: build_Snapshot
+      id: build_snapshot
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildSnapshot@main
       with:
         flags: ''
@@ -40,6 +40,11 @@ jobs:
       with:
         flags: ''
         
+    - name: Build Release
+      id: build_release
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildRelease@main
+      with:
+        flags: ''       
         
   # Run_Unit_Tests:
   #   runs-on: ubuntu-latest
