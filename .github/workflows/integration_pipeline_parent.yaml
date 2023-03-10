@@ -28,6 +28,12 @@ jobs:
       with:
         flags: ''
         
+    - name: Run Unit Tests
+      id: run_unit_tests
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/testUnit@main
+      with:
+        flags: ''
+        
   # Run_Unit_Tests:
   #   runs-on: ubuntu-latest
   #   needs: [Build_Code]
