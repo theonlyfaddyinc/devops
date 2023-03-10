@@ -1,1 +1,15 @@
+name: Run Unit Tests
+description: Run Unit Tests
+inputs:
+  flags:  # id of input
+    description: flags used during the buildd
+    required: true
+    default: ''
 
+runs:
+  using: "composite"
+  steps:
+    - name: Run Unit Tests
+      shell: bash
+      run: |
+            mvn test --update-snapshots --no-transfer-progress  --settings ${{ github.workspace }}/global_configs/settings.xml
