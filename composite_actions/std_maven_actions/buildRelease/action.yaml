@@ -10,6 +10,7 @@ runs:
   using: "composite"
   steps:
     - name: setup git config
+      shell: bash
       run: |
         git config user.email "abinstephen@gmail.com"
         git config user.name "abinstephen"
