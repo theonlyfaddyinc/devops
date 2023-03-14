@@ -8,12 +8,15 @@ jobs:
     name: Build & Run Tests
     runs-on: ubuntu-latest
     steps:
+
+
     - name: Prepare - Checkout Repo(s) and Read YAML(s)
       id: pre_build
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/prepare_phase/pre_build_steps@main
       with:
         global_config_repo: "theonlyfaddyinc/global_configs"
         global_config_repo_checkout_path: "global_configs"
+
 
     - name: Setup build tools & runtime installation
       id: setup_build_tools
@@ -22,7 +25,8 @@ jobs:
         pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
         pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
 
-    - name: Build Snapshot
+
+    - name: Build project
       run:  |
               echo "Maven call with settings file - ${{ steps.setup_build_tools.outputs.maven_settings_xml }}"
               mvn clean install -Dmaven.test.skip=true --update-snapshots --no-transfer-progress
