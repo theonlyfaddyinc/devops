@@ -1,0 +1,15 @@
+name: Run Functional Tests
+description: Run Functional Tests
+inputs:
+  flags:  # id of input
+    description: flags used during the buildd
+    required: true
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Functional Tests
+      shell: bash
+      run: |
+            mvn verify --update-snapshots --no-transfer-progress  --settings ${{ github.workspace }}/global_configs/settings.xml
