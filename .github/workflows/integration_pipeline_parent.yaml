@@ -41,41 +41,41 @@ jobs:
           pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
           pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
 
-      - name: Build Phase
-        id: build_phase
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
-        with:
-          flags: ''
-          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
-          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
-          pipeline_type: ${{ inputs.pipeline_type }}
-          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
-          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      # - name: Build Phase
+      #   id: build_phase
+      #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
+      #   with:
+      #     flags: ''
+      #     pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+      #     pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+      #     pipeline_type: ${{ inputs.pipeline_type }}
+      #     build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+      #     build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+      #     build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
         
-      - name: Build Snapshot
-        id: build_snapshot
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
-        with:
-          flags: ''
+      # - name: Build Snapshot
+      #   id: build_snapshot
+      #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
+      #   with:
+      #     flags: ''
           
-      - name: Run Unit Tests
-        id: run_unit_tests
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/testUnit@main
-        with:
-          flags: ''
+      # - name: Run Unit Tests
+      #   id: run_unit_tests
+      #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/testUnit@main
+      #   with:
+      #     flags: ''
 
-      - name: Run Functional Tests
-        id: run_functional_tests
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/testFunctional@main
-        with:
-          flags: ''
+      # - name: Run Functional Tests
+      #   id: run_functional_tests
+      #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/testFunctional@main
+      #   with:
+      #     flags: ''
           
-      - name: Build Release
-        id: build_release
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildRelease@main
-        with:
-          flags: ''       
+      # - name: Build Release
+      #   id: build_release
+      #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildRelease@main
+      #   with:
+      #     flags: ''       
         
   # Run_Unit_Tests:
   #   runs-on: ubuntu-latest
