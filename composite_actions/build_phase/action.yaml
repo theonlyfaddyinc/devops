@@ -19,6 +19,7 @@ inputs:
   pipeline_type:
     description: "Pipeline type - SNAPSHOT or RELEASE"
     required: false
+
   
 
 runs:
@@ -28,9 +29,6 @@ runs:
       id: pre_step
       shell: bash
       run:  |
-            #echo "PLACEHOLDER FOR PRE STEPS"
-            
-            
             echo "####### Pre Steps Compelted "#######"
     - name: Determine pipeline type
       id: check_pipeline_type

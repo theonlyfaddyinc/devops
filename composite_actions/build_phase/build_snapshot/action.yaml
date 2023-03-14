@@ -26,9 +26,12 @@ runs:
       run: echo pre steps
     - name: Build Snapshot - Maven
       if: $${{ inputs.build_tool_name }} == "maven"
-      uses: ../std_maven_actions/build_snapshot
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildSnapshot@main
       with:
-        pipeline_repo: ${{ inputs.pipeline_repo }}
-    - name: Build Snapshot - Pipeline
-      if: $${{ inputs.build_tool_name }} == "pip"
-      uses: ../std_pip_actions/build_snapshot
+        pipeline-repo: ${{ inputs.pipeline_repo }}
+        pipeline_global: ${{ inputs.pipeline_global }}
+        build_tool_settings: $${{ inputs.build_tool_settings }}
+        flags: ''
+    # - name: Build Snapshot - Pipeline
+    #   if: $${{ inputs.build_tool_name }} == "pip"
+    #   uses: ../std_pip_actions/build_snapshot
