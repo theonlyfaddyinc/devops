@@ -52,7 +52,7 @@ jobs:
         #   build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
         #   build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
         #   build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/test-action-2
+        uses: theonlyfaddyinc/devops-standard-library/composite_actions/test-action-2@main
         with:
           who-to-greet: 'Faddy'
         
