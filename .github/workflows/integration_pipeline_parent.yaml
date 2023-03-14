@@ -42,23 +42,23 @@ jobs:
           pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
 
       - name: Build Phase
-        id: build_phase
-        # uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
-        # with:
-        #   flags: ''
-        #   pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
-        #   pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
-        #   pipeline_type: ${{ inputs.pipeline_type }}
-        #   build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-        #   build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
-        #   build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+        id: build
+        uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
+        with:
+          flags: ''
+          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+          pipeline_type: ${{ inputs.pipeline_type }}
+          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
         # uses: theonlyfaddyinc/devops-standard-library/composite_actions/test-action-2@main
         # with:
         #   who-to-greet: 'Faddy'
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
-        with:
-          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
-          pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
+        # uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools@main
+        # with:
+        #   pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+        #   pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
         
       # - name: Build Snapshot
       #   id: build_snapshot
