@@ -26,7 +26,7 @@ build:
   # Note: maps to the tool alias defined inside Jenkins: {tool.name}-{tool.version} (Example: maven-3.6)
   tool:
     name: "maven"
-    version: "3.8"
+    version: "3.8.1"
     settings: "maven-settings-xml"
 
 # Notification configuration
