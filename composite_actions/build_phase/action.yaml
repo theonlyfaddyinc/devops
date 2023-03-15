@@ -32,14 +32,14 @@ runs:
       id: pre_step
       shell: bash
       run:  |
-            echo "####### Pre Steps Compelted "#######"
+            echo "####### Pre Steps Compelted #######"
     - name: Determine pipeline type
       id: check_pipeline_type
       if: ${{ inputs.pipeline_type }} == ""
       shell: bash
       run:  |
             echo "Pipeline Type not defined! Determining using branch"
-            echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
+            # echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
 
     # - name: Build step for Snapshot
     #   id: build_snapshot
