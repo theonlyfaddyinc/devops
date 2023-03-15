@@ -37,21 +37,22 @@ runs:
       run:  |
             echo "Pipeline Type not defined! Determining using branch"
             echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
-    - name: Build step for Snapshot
-      id: build_snapshot
-      if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "SNAPSHOT"
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_snapshot@main
-      with:
-        pipeline_repo: ${{ inputs.pipeline_repo }}
-        pipeline_global: ${{ inputs.pipeline_global }}
+            
+    # - name: Build step for Snapshot
+    #   id: build_snapshot
+    #   if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "SNAPSHOT"
+    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_snapshot@main
+    #   with:
+    #     pipeline_repo: ${{ inputs.pipeline_repo }}
+    #     pipeline_global: ${{ inputs.pipeline_global }}
 
-    - name: Build step for RELEASE
-      id: build_release
-      if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_release@main
-      with:
-        pipeline_repo: ${{ inputs.pipeline_repo }}
-        pipeline_global: ${{ inputs.pipeline_global }}
+    # - name: Build step for RELEASE
+    #   id: build_release
+    #   if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
+    #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_release@main
+    #   with:
+    #     pipeline_repo: ${{ inputs.pipeline_repo }}
+    #     pipeline_global: ${{ inputs.pipeline_global }}
 
     - name: Failure step
       if: ${{ failure() }}
