@@ -55,6 +55,11 @@ runs:
       shell: bash
       run:  |
             echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
+    - name: Execute if RELEASE
+      if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
+      shell: bash
+      run:  |
+            echo -e "\033[32;1m #### Executing because = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Build step for RELEASE
       id: build_release
       if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
