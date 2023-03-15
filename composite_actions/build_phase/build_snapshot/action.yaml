@@ -1,5 +1,5 @@
-name: Setup JDK 
-description: Setup the build tools with specific versions
+name: Build Snapshot 
+description: Build Snapshot using respective build tool
 inputs:
   build_lang_name:
     description: "Build Language"
@@ -16,6 +16,7 @@ inputs:
   pipeline_global: 
     description: Config information at Global level in YAML
     required: true
+  
     
 
 runs:

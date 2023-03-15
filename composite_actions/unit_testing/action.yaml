@@ -1,5 +1,5 @@
-name: Build Snapshot 
-description: Build Snapshot using respective build tool
+name: Run Unit Testing 
+description: Run Unit Testing using respective build tool
 inputs:
   build_lang_name:
     description: "Build Language"
@@ -25,9 +25,9 @@ runs:
     - name:  Pre steps
       shell: bash
       run: echo pre steps
-    - name: Build Release - Maven
+    - name: Run Unit Testing - Maven
       if: $${{ inputs.build_tool_name }} == "maven"
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildRelease@main
+      uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/testUnit@main
       with:
         pipeline-repo: ${{ inputs.pipeline_repo }}
         pipeline_global: ${{ inputs.pipeline_global }}

@@ -59,7 +59,54 @@ jobs:
         # with:
         #   pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
         #   pipeline_global: ${{ steps.pre_build.outputs.pipeline_global }}
-        
+      - name: Run Unit Tests
+        id: run_unit_tests
+        uses: theonlyfaddyinc/devops-standard-library/composite_actions/unit_testing@main
+        with:
+          flags: ''
+          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+          pipeline_type: ${{ inputs.pipeline_type }}
+          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      
+      - name: Run Functional Tests
+        id: run_functional_tests
+        uses: theonlyfaddyinc/devops-standard-library/composite_actions/functional_testing@main
+        with:
+          flags: ''
+          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+          pipeline_type: ${{ inputs.pipeline_type }}
+          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      
+      - name: Scan and Analysze Code
+        id: scan_code
+        uses: theonlyfaddyinc/devops-standard-library/composite_actions/scan_code_analysis@main
+        with:
+          flags: ''
+          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+          pipeline_type: ${{ inputs.pipeline_type }}
+          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      
+      - name: Deploy to Dev 
+        id: deploy_dev
+        uses: theonlyfaddyinc/devops-standard-library/composite_actions/deploy_dev@main
+        with:
+          flags: ''
+          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+          pipeline_type: ${{ inputs.pipeline_type }}
+          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      
       # - name: Build Snapshot
       #   id: build_snapshot
       #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase@main
