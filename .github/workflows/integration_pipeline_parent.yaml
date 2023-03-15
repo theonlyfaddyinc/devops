@@ -20,7 +20,18 @@ on:
 
 
 jobs:
+  PRE_CHECK:
+    name: Pre Check job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pre Check Step
+        id: pre_check_step
+        run:  |
+            echo -e "\033[32;1m################ PRE CHECKS ##################"
+            echo -e "\033[32m# pipeline_type = '${{ inputs.pipeline_type }}'"
+            echo -e "\033[32;1m##############################################"
   BUILD_TEST_TEST_FUNC:
+    needs: [pre_check]
     name: Build & Run Tests
     runs-on: ubuntu-latest
     steps:
