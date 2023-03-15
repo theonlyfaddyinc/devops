@@ -33,13 +33,13 @@ runs:
       shell: bash
       run:  |
             echo "####### Pre Steps Compelted #######"
-    - name: Determine pipeline type
-      id: check_pipeline_type
-      if: ${{ inputs.pipeline_type }} == ""
-      shell: bash
-      run:  |
-            echo "Pipeline Type not defined! Determining using branch"
-            echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
+    # - name: Determine pipeline type
+    #   id: check_pipeline_type
+    #   if: ${{ inputs.pipeline_type }} == ""
+    #   shell: bash
+    #   run:  |
+    #         echo "Pipeline Type not defined! Determining using branch"
+    #         echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
     - name: Check pipeline_type value
       shell: bash
       run:  |
