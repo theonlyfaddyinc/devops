@@ -95,17 +95,17 @@ jobs:
           build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
           build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
       
-      - name: Deploy to Dev 
-        id: deploy_dev
-        uses: theonlyfaddyinc/devops-standard-library/composite_actions/deploy_dev@main
-        with:
-          flags: ''
-          pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
-          pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
-          pipeline_type: ${{ inputs.pipeline_type }}
-          build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
-          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      # - name: Deploy to Dev 
+      #   id: deploy_dev
+      #   uses: theonlyfaddyinc/devops-standard-library/composite_actions/deploy_dev@main
+      #   with:
+      #     flags: ''
+      #     pipeline_repo: ${{ steps.pre_build.outputs.pipeline_repo }}
+      #     pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
+      #     pipeline_type: ${{ inputs.pipeline_type }}
+      #     build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
+      #     build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
+      #     build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
       
       # - name: Build Snapshot
       #   id: build_snapshot

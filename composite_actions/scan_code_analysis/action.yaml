@@ -1,0 +1,38 @@
+name: Run Code Scanning and Analysis
+description: Run Code Scanning and Analysis using respective build tool
+inputs:
+  build_lang_name:
+    description: "Build Language"
+    required: false
+  build_tool_name:
+    description: "Build Tool Name"
+    required: false
+  build_tool_settings:
+    description: "Settings file defined in the local repo level"
+    required: false
+  pipeline_repo: 
+    description: Config information at repo level in YAML
+    required: true
+  pipeline_global: 
+    description: Config information at Global level in YAML
+    required: true
+  
+    
+
+runs:
+  using: "composite"
+  steps:
+    - name:  Pre steps
+      shell: bash
+      run: echo pre steps
+    - name: Run Unit Testing - Maven
+      if: $${{ inputs.build_tool_name }} == "maven"
+      shell: bash
+      run:  |
+            echo "Running code analysis using maven and sonar plugin"
+      # shell: bash
+      # run:  |
+      #       echo calling theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildSnapshot@main
+    # - name: Build Snapshot - Pipeline
+    #   if: $${{ inputs.build_tool_name }} == "pip"
+    #   uses: ../std_pip_actions/build_snapshot
