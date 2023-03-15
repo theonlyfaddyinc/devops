@@ -40,7 +40,10 @@ runs:
       run:  |
             echo "Pipeline Type not defined! Determining using branch"
             echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
-
+    - name: Check pipeline_type value
+      shell: bash
+      run:  |
+            echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Build step for Snapshot
       id: build_snapshot
       if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "SNAPSHOT"
@@ -48,7 +51,10 @@ runs:
       with:
         pipeline_repo: ${{ inputs.pipeline_repo }}
         pipeline_global: ${{ inputs.pipeline_global }}
-
+    - name: Check pipeline_type value
+      shell: bash
+      run:  |
+            echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Build step for RELEASE
       id: build_release
       if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
