@@ -22,9 +22,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name:  Pre steps
+    - name:  Determine Pre & Post flags
       shell: bash
-      run: echo pre steps
+      run: |
+            echo "Determine Pre & Post flags"
     - name: Build Snapshot - Maven
       if: inputs.build_tools_name == 'maven'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildSnapshot@main
