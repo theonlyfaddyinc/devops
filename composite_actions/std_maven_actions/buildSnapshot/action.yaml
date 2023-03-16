@@ -1,7 +1,19 @@
 name: Build Snapshot 
 description: Build (Snapshot) with Maven
 inputs:
-  flags:  # id of input
+  pipeline-repo: 
+    description: Repo level pipeline local yaml config file
+    required: true
+    default: ''
+  pipeline_global: 
+    description: Global level pipeline yaml config file
+    required: true
+    default: ''
+  build_tools_settings: 
+    description: Build Tool Settings
+    required: false
+    default: ''
+  flags: 
     description: flags used during the buildd
     required: true
     default: ''

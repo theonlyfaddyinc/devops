@@ -10,10 +10,10 @@ inputs:
   build_lang_name:
     description: "Build Language"
     required: false
-  build_tool_name:
+  build_tools_name:
     description: "Build Tool Name"
     required: false
-  build_tool_settings:
+  build_tools_settings:
     description: "Settings file defined in the local repo level"
     required: false
   pipeline_type:
@@ -28,18 +28,19 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Pre step
-      id: pre_step
+    - name: Check Pipeline Type
+      id: check_pipeline_type
       shell: bash
       run:  |
+            export var_pipeline_type='${{ inputs.pipeline_type }}'
+            if [ $var_pipeline_type -eq '']
+            then
+              echo "Pipeline Type blank! Hence defaulting to 'SNAPSHOT'"
+            else
+              echo "Pipeline Type value set as '$var_pipeline_type'"
+            fi
+            echo 'pipeline_type=$var_pipeline_type' >> $GITHUB_OUTPUT
             echo "####### Pre Steps Compelted #######"
-    # - name: Determine pipeline type
-    #   id: check_pipeline_type
-    #   if: ${{ inputs.pipeline_type }} == ""
-    #   shell: bash
-    #   run:  |
-    #         echo "Pipeline Type not defined! Determining using branch"
-    #         echo "pipeline_type=SNAPSHOT" >> $GITHUB_OUTPUT
     - name: Check pipeline_type value
       shell: bash
       run:  |

@@ -4,10 +4,10 @@ inputs:
   build_lang_name:
     description: "Build Language"
     required: false
-  build_tool_name:
+  build_tools_name:
     description: "Build Tool Name"
     required: false
-  build_tool_settings:
+  build_tools_settings:
     description: "Settings file defined in the local repo level"
     required: false
   pipeline_repo: 
@@ -26,7 +26,7 @@ runs:
       shell: bash
       run: echo pre steps
     - name: Build Release - Maven
-      if: $${{ inputs.build_tool_name }} == "maven"
+      if: inputs.build_tools_name == "maven"
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildRelease@main
       with:
         pipeline-repo: ${{ inputs.pipeline_repo }}
