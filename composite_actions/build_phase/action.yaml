@@ -40,8 +40,7 @@ runs:
               echo "Pipeline Type value set as '$var_pipeline_type'"
             fi
             echo "pipeline_type=$var_pipeline_type" >> $GITHUB_OUTPUT
-            echo "###################################"
-            cat $GITHUB_OUTPUT
+            
             echo "####### Pre Steps Compelted #######"
     - name: Check pipeline_type value
       shell: bash
