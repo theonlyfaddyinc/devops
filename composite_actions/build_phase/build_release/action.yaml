@@ -26,7 +26,7 @@ runs:
       shell: bash
       run: echo pre steps
     - name: Build Release - Maven
-      if: inputs.build_tools_name == "maven"
+      if: inputs.build_tools_name == 'maven'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildRelease@main
       with:
         pipeline-repo: ${{ inputs.pipeline_repo }}
