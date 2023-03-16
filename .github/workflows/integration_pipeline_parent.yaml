@@ -61,8 +61,8 @@ jobs:
           pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
           pipeline_type: ${{ inputs.pipeline_type }}
           build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
-          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
+          build_tools_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
+          build_tools_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
         # uses: theonlyfaddyinc/devops-standard-library/composite_actions/test-action-2@main
         # with:
         #   who-to-greet: 'Faddy'
@@ -79,8 +79,8 @@ jobs:
           pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
           pipeline_type: ${{ inputs.pipeline_type }}
           build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
-          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
+          build_tools_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
+          build_tools_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
       
       - name: Run Functional Tests
         id: run_functional_tests
@@ -91,8 +91,8 @@ jobs:
           pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
           pipeline_type: ${{ inputs.pipeline_type }}
           build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
-          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
+          build_tools_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
+          build_tools_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
       
       - name: Scan and Analysze Code
         id: scan_code
@@ -103,8 +103,8 @@ jobs:
           pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
           pipeline_type: ${{ inputs.pipeline_type }}
           build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-          build_tool_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
-          build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
+          build_tools_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
+          build_tools_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
       
       # - name: Deploy to Dev 
       #   id: deploy_dev
@@ -115,8 +115,8 @@ jobs:
       #     pipeline_global: ${{ steps.setup_build_tools.outputs.pipeline_global }}
       #     pipeline_type: ${{ inputs.pipeline_type }}
       #     build_lang_name: ${{ steps.setup_build_tools.outputs.build_lang_name }}
-      #     build_tool_name: ${{ steps.setup_build_tools.outputs.build_tool_name }}
-      #     build_tool_settings: ${{ steps.setup_build_tools.outputs.build_tool_settings }}
+      #     build_tools_name: ${{ steps.setup_build_tools.outputs.build_tools_name }}
+      #     build_tools_settings: ${{ steps.setup_build_tools.outputs.build_tools_settings }}
       
       # - name: Build Snapshot
       #   id: build_snapshot
