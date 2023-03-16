@@ -25,7 +25,13 @@ runs:
     - name:  Determine Pre & Post flags
       shell: bash
       run: |
-            echo "Determine Pre & Post flags"
+            echo -e "\033[32;1m############ Determine Inputs ############"
+            echo -e "\033[32;1m build_lang_name : ${{ inputs.build_lang_name }}"
+            echo -e "\033[32;1m build_tools_name  : ${{ inputs.build_tools_name }}"
+            echo -e "\033[32;1m build_tools_settings  : ${{ inputs.build_tools_settings }}"
+            echo -e "\033[32;1m flags : "
+            echo -e "\033[32;1m##########################################"
+
     - name: Build Snapshot - Maven
       if: inputs.build_tools_name == 'maven'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/std_maven_actions/buildSnapshot@main
