@@ -46,7 +46,7 @@ runs:
             echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Build step for Snapshot
       id: build_snapshot
-      if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "SNAPSHOT"
+      if: steps.check_pipeline_type.outputs.pipeline_type == 'SNAPSHOT'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_snapshot@main
       with:
         pipeline_repo: ${{ inputs.pipeline_repo }}
@@ -56,13 +56,13 @@ runs:
       run:  |
             echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Execute if RELEASE
-      if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
+      if: steps.check_pipeline_type.outputs.pipeline_type == 'RELEASE'
       shell: bash
       run:  |
             echo -e "\033[32;1m #### Executing because = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Build step for RELEASE
       id: build_release
-      if: ${{ steps.check_pipeline_type.outputs.pipeline_type }} == "RELEASE"
+      if: steps.check_pipeline_type.outputs.pipeline_type == 'RELEASE'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_release@main
       with:
         pipeline_repo: ${{ inputs.pipeline_repo }}

@@ -65,7 +65,7 @@ runs:
             echo -e "\033[32;1m##########################################################################"
     - name: Set up JDK 14
       id: setup_jdk
-      if: ${{ steps.pre_reqs.outputs.build_lang_name }} == "jdk-open"
+      if:  steps.pre_reqs.outputs.build_lang_name == 'jdk-open'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-jdk@main
       with:
         java-version:  ${{ steps.pre_reqs.outputs.build_lang_version }}
@@ -73,7 +73,7 @@ runs:
         pipeline_global: ${{ inputs.pipeline_global }}
     - name: Set up Maven
       id: setup_maven
-      if: ${{ steps.pre_reqs.outputs.build_tool_name }} == "maven"
+      if: steps.pre_reqs.outputs.build_tool_name == 'maven'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/setup_build_tools/setup-maven@main
       with:
         maven-version:  ${{ steps.pre_reqs.outputs.build_tools_version }}
