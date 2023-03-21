@@ -12,8 +12,8 @@ runs:
     - name: setup git config
       shell: bash
       run: |
-        git config user.email "abinstephen@gmail.com"
-        git config user.name "abinstephen"
+        git config user.email "githubautoagent@gmail.com"
+        git config user.name "GITHUB_AUTO_AGENT"
         
     - name: Build Release with Maven
       shell: bash
