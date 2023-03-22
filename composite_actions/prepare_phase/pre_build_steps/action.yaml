@@ -24,7 +24,8 @@ runs:
   steps:
     - id: checkout_repo_and_global_config
       name: Checkout Repo (Local & Global) 
-      uses: theonlyfaddyinc/devops-standard-library/composite_actions/prepare_phase/checkout_repo_global_config@main
+      uses: theonlyfaddyinc/devops-standard-library/.github/workflows/checkout_repo_global_config@main
+      # uses: theonlyfaddyinc/devops-standard-library/composite_actions/prepare_phase/checkout_repo_global_config@main
       with:
         global_config_repo: ${{ inputs.global_config_repo }}
         global_config_repo_checkout_path: ${{ inputs.global_config_repo_checkout_path }}

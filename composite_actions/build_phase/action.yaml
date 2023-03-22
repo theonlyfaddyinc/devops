@@ -42,11 +42,7 @@ runs:
             echo "pipeline_type=$var_pipeline_type" >> $GITHUB_OUTPUT
             
             echo "####### Pre Steps Compelted #######"
-    - name: Check pipeline_type value
-      shell: bash
-      run:  |
-            echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
-    - name: Build step for Snapshot
+    - name: Build step for SNAPSHOT
       id: build_snapshot
       if: steps.check_pipeline_type.outputs.pipeline_type == 'SNAPSHOT'
       uses: theonlyfaddyinc/devops-standard-library/composite_actions/build_phase/build_snapshot@main
@@ -57,15 +53,6 @@ runs:
         build_tools_name: ${{ inputs.build_tools_name }}
         build_tools_settings: ${{ inputs.build_tools_settings }}
         
-    - name: Check pipeline_type value
-      shell: bash
-      run:  |
-            echo -e "\033[32;1m #### Pipeline_type value = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
-    - name: Execute if RELEASE
-      if: steps.check_pipeline_type.outputs.pipeline_type == 'RELEASE'
-      shell: bash
-      run:  |
-            echo -e "\033[32;1m #### Executing because = ${{ steps.check_pipeline_type.outputs.pipeline_type }}"
     - name: Build step for RELEASE
       id: build_release
       if: steps.check_pipeline_type.outputs.pipeline_type == 'RELEASE'
