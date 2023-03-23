@@ -10,6 +10,10 @@ inputs:
     description: The global config repo checkout relative path
     required: false
     default: "global_configs"
+  git_commit_token:
+    description: Commit token as secret
+    required: true
+  
 
 # outputs:
 #   pipeline_repo: 
@@ -25,6 +29,8 @@ runs:
     - id: checkout_current_repo
       name: Checkout current repo!
       uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.git_commit_token }}
     - name: Clone global config repo - '${{ inputs.global_config_repo }}' under ''./${{ inputs.global_config_repo_checkout_path }}'
       uses: actions/checkout@v3
       with:

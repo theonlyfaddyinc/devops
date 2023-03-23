@@ -43,6 +43,7 @@ jobs:
         with:
           global_config_repo: "theonlyfaddyinc/global_configs"
           global_config_repo_checkout_path: "global_configs"
+          git_commit_token: ${{ secrets.GIT_COMMIT_TOKEN }}
 
 
       - name: Setup build tools & runtime installation
