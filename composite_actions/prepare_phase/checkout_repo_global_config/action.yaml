@@ -30,7 +30,11 @@ runs:
       name: Pre Steps
       shell: bash
       run:  |
-            echo "git_commit_token : ${{ inputs.git_commit_token }}"
+            echo -e "\033[32;1m############ Determine Inputs ############"
+            echo -e "\033[32;1m git_commit_token : ${{ inputs.git_commit_token }}"
+            echo -e "\033[32;1m global_config_repo  : ${{ inputs.global_config_repo }}"
+            echo -e "\033[32;1m global_config_repo_checkout_path  : ${{ inputs.global_config_repo_checkout_path }}"
+            echo -e "\033[32;1m##########################################"
     - id: checkout_current_repo
       name: Checkout current repo!
       uses: actions/checkout@v3

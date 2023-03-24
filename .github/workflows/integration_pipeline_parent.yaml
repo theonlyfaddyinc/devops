@@ -29,6 +29,7 @@ jobs:
         run:  |
             echo -e "\033[32;1m################ PRE CHECKS ##################"
             echo -e "\033[32m# pipeline_type = '${{ inputs.pipeline_type }}'"
+            echo -e "\033[32m# GIT_COMMIT_TOKEN = '${{ secrets.GIT_COMMIT_TOKEN }}'"
             echo -e "\033[32;1m##############################################"
   BUILD_TEST_TEST_FUNC:
     needs: [pre_check]
