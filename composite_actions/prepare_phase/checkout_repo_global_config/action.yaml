@@ -26,6 +26,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - id: pre_step
+      name: Pre Steps
+      shell: bash
+      run:  |
+            echo "git_commit_token : ${{ inputs.git_commit_token }}"
     - id: checkout_current_repo
       name: Checkout current repo!
       uses: actions/checkout@v3
